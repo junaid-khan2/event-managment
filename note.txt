@@ -1,0 +1,22 @@
+for provider
+
+services
+
+id,user_id, name, image ,  location, category_id, status, avalibality_for_home, content
+
+
+Price
+
+service_id,  name, image,  features, price, description
+
+for admin
+
+service_category
+
+id, name, image, description
+
+
+for user
+
+
+  
