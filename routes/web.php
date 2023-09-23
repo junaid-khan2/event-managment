@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\DashboardController;
+use Illuminate\Support\Facades\Hash;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +19,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::view('about', 'about');
+Route::view('contact', 'contact');
+Route::view('services', 'services');
+
+
+
+Route::group(['middleware' => ['auth:web']], function() {
+    Route::get('/users', [UserController::class, 'users']);
+});
+
+Route::get('/testing', function(){
+    return Hash::make('admin');
+});
+
+Route::get('/admin',[AdminAuthController::class,'login_view'])->name('admin');
+Route::post('/admin',[AdminAuthController::class,'login'])->name('admin');
+
+Route::group(['prefix'=>'admin','as'=>'admin.','middleware' => ['auth:admin']], function() {
+    Route::get('/logout', [AdminAuthController::class,'logout'])->name('logout');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

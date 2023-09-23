@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned()->nullable(); 
-            $table->bigInteger('Service_category_id')->unsigned()->nullable(); 
+            $table->bigInteger('event_id')->unsigned()->nullable(); 
             $table->string('name');
             $table->string('image');
             $table->string('location');
