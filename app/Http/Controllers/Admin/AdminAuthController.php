@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Admin;
 
 class AdminAuthController extends Controller
@@ -22,8 +23,8 @@ class AdminAuthController extends Controller
 
           // Define your validation rules
     $rules = [
-        'email' => 'required|email|unique:users',
-        'password' => 'required|min:8',
+        'email' => 'required|email',
+        'password' => 'required',
     ];
 
     // Create a validator instance
