@@ -2,16 +2,16 @@
 @section('content')
 
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Tables</h1>
+        <h1 class="mt-4">Services</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="{{route('admin')}}">Dashboard</a></li>
-            <li class="breadcrumb-item active">Event</li>
+            <li class="breadcrumb-item active">Services</li>
         </ol>
       
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                Event Table
+                Service Table
             </div>
             <div class="card-body">
                 <table id="datatablesSimple">

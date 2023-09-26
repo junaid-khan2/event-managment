@@ -6,15 +6,36 @@
             <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Dashboard</a></li>
             <li class="breadcrumb-item active">Create Event</li>
         </ol>
+      
         <div class="card mb-4">
             <div class="card-body">
-                <p class="mb-0">
-                    This page is an example of using static navigation. By removing the
-                    <code>.sb-nav-fixed</code>
-                    class from the
-                    <code>body</code>
-                    , the top navigation and side navigation will become static on scroll. Scroll down this page to see an example.
-                </p>
+                <form action="{{route('admin.event.store')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group my-2">
+                        <label for="exampleInputEmail1">Event Name</label>
+                        <input type="text" value="{{old('name')}}" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Event Name">
+                        @error('name')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        
+                    </div>
+                    <div class="form-group my-2">
+                        <label for="exampleInputPassword1">Description</label>
+                        <input type="text" value="{{old('description')}}" name="description" class="form-control" >
+                        @error('description')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group my-2">
+                        <label for="exampleFormControlFile1">Image</label>
+                        <input type="file" value="{{old('image')}}" name="image" class="form-control-file" id="exampleFormControlFile1">
+                        @error('image')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </div>
         <div style="height: 100vh"></div>

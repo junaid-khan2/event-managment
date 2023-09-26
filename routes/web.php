@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\ServiceController;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -36,10 +37,11 @@ Route::get('/testing', function(){
 });
 
 Route::get('/admin',[AdminAuthController::class,'login_view'])->name('admin');
-Route::post('/admin',[AdminAuthController::class,'login'])->name('admin');
+Route::post('/admin',[AdminAuthController::class,'login'])->name('admin.login');
 
 Route::group(['prefix'=>'admin','as'=>'admin.','middleware' => ['auth:admin']], function() {
     Route::get('/logout', [AdminAuthController::class,'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('event', EventController::class);
+    Route::resource('service', ServiceController::class);
 });
