@@ -1,74 +1,199 @@
 @extends('layout.app')
+@section('title')
+    Contact
+@endsection
 @section('content')
-<main class="page-content">
-        <section class="section-60 section-md-110">
-          <div class="shell">
-            <h2>Contact Information</h2>
-            <div class="range range-xs-center font-accent link-secondary">
-              <div class="cell-sm-5 cell-lg-4">
-                <div class="unit-spacing-44 unit-middle unit unit-xs-horizontal unit-sm-horizontal unit-md-horizontal unit-lg-horizontal">
-                  <div class="unit-left"><span class="icon icon-primary icon-lg fa-map-marker"></span></div>
-                  <div class="text-xs-left unit-body">
-                    <p class="offset-bottom-0"><a href="#" class="text-dark">9870 St Vincent Place, <br class='veil reveal-md-block'>Glasgow, DC 45 Fr 45.</a></p>
-                  </div>
-                </div>
+<body class="default-header-p">
+
+
+
+
+		
+  <!-- backtotop - start -->
+  <div id="thetop" class="thetop"></div>
+  <div class='backtotop'>
+    <a href="#thetop" class='scroll'>
+      <i class="fas fa-angle-double-up"></i>
+    </a>
+  </div>
+  <!-- backtotop - end -->
+
+  <!-- preloader - start -->
+  <div id="preloader"></div>
+  <!-- preloader - end -->
+
+  @include('partials.header')
+
+  <!-- breadcrumb-section - start
+  ================================================== -->
+  <section id="breadcrumb-section" class="breadcrumb-section clearfix">
+    <div class="jarallax" style="background-image: url(assets/images/breadcrumb/0.breadcrumb-bg.jpg);">
+      <div class="overlay-black">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+
+              <!-- breadcrumb-title - start -->
+              <div class="breadcrumb-title text-center mb-50">
+                <span class="sub-title">contact us now</span>
+                <h2 class="big-title">keep <strong>in touch</strong></h2>
               </div>
-              <div class="cell-sm-7 cell-md-5 cell-lg-4">
-                <div class="unit-spacing-44 unit unit-xs-horizontal unit-sm-horizontal unit-md-horizontal unit-lg-horizontal">
-                  <div class="unit-left"><span class="icon icon-primary icon-lg fa-phone"></span></div>
-                  <div class="text-xs-left unit-body">
-                    <dl class="contact-info">
-                      <dt>Freephone:</dt>
-                      <dd><a href="callto:#">+1 800 559 6580</a></dd>
-                    </dl>
-                    <dl class="contact-info">
-                      <dt>Telephone:</dt>
-                      <dd><a href="callto:#">+1 800 603 6035</a></dd>
-                    </dl>
-                    <dl class="contact-info">
-                      <dt>FAX:</dt>
-                      <dd><a href="callto:#">+1 800 889 9898</a></dd>
-                    </dl>
-                  </div>
-                </div>
+              <!-- breadcrumb-title - end -->
+
+              <!-- breadcrumb-list - start -->
+              <div class="breadcrumb-list">
+                <ul>
+                  <li class="breadcrumb-item"><a href="{{route('index')}}" class="breadcrumb-link">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">contact us</li>
+                </ul>
               </div>
-              <div class="cell-sm-6 cell-lg-4 offset-top-45 offset-lg-top-0">
-                <div class="unit-spacing-44 unit-middle unit unit-xs-horizontal unit-sm-horizontal unit-md-horizontal unit-lg-horizontal">
-                  <div class="unit-left"><span class="icon icon-primary icon-lg fa-desktop"></span></div>
-                  <div class="unit-body text-xs-left">
-                    <p class="offset-bottom-0">E-mail: <a href="mailto:#" class="text-dark reveal-inline-block">mail@demolink.org</a><a href="#" class="text-dark">www.demolink.org</a></p>
-                  </div>
-                </div>
-              </div>
+              <!-- breadcrumb-list - end -->
+
             </div>
           </div>
-        </section>
-        <section class="bg-wood section-60 section-md-110">
-          <div class="shell">
-            <h2>Feedback</h2>
-            <!-- RD Mailform-->
-            <form data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php" class="rd-mailform range">
-              <div class="cell-md-4 form-group offset-top-0">
-                <label for="contact-name" class="form-label">Name:</label>
-                <input id="contact-name" type="text" name="name" data-constraints="@Required" class="form-control">
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- breadcrumb-section - end
+  ================================================== -->
+
+
+
+
+
+  <!-- contact-section - start
+  ================================================== -->
+  <section id="contact-section" class="contact-section sec-ptb-100 clearfix">
+    <div class="container">
+
+      <!-- section-title - start -->
+      <div class="section-title mb-50">
+        <small class="sub-title">contact us</small>
+        <h2 class="big-title">Keep in touch <strong>with Webify</strong></h2>
+      </div>
+      <!-- section-title - end -->
+
+      <!-- contact-form - start -->
+      <div class="contact-form form-wrapper text-center">
+        <form action="{{route('contact')}}" method="post">
+          @csrf
+          <div class="row">
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="form-item">
+                <input type="text" name="name" placeholder="Your Name" required>
               </div>
-              <div class="cell-md-4 form-group offset-top-0">
-                <label for="contact-email" class="form-label">E-mail:</label>
-                <input id="contact-email" type="email" name="email" data-constraints="@Required @Email" class="form-control">
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="form-item">
+                <input type="email" name="email" placeholder="Email Address" required>
               </div>
-              <div class="cell-md-4 form-group offset-top-0">
-                <label for="contact-phone" class="form-label">Phone:</label>
-                <input id="contact-phone" type="text" name="phone" data-constraints="@Required @Integer" class="form-control">
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="form-item">
+                <input type="text" name="country" placeholder="Your Country" required>
               </div>
-              <div class="cell-md-12 form-group offset-top-0">
-                <label for="contact-message" class="form-label">Message:</label>
-                <textarea id="contact-message" name="message" data-constraints="@Required" class="form-control"></textarea>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="form-item">
+                <input name="phone" type="tel" placeholder="Phone Number" required>
               </div>
-              <div class="cell-md-12 offset-top-30">
-                <button type="submit" class="link link-primary">SEND MESSAGE</button>
-              </div>
-            </form>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea name="massage" placeholder="Your Message" required></textarea>
+              <button type="submit" class="custom-btn">send </button>
+            </div>
+            
           </div>
-        </section>
-      </main>
+        </form>
+      </div>
+      <!-- contact-form - end -->
+
+    </div>
+  </section>
+  <!-- contact-section - end
+  ================================================== -->
+
+
+
+
+
+  <!-- google map - start
+  ================================================== -->
+  <section id="map-section" class="map-section clearfix">
+    <div class="address-wrapper">
+
+      <!-- address-info-topbar - start -->
+      <div class="address-info-topbar mb-30 clearfix">
+        <div class="address-info-left">
+          <h3 class="title-text">harmoni event management</h3>
+          <p class="m-0">
+            Apple Store, 112 Prince St New York,
+            NY 10012, United States 80361,
+            United States
+          </p>
+        </div>
+
+        <div class="address-info-right">
+          <ul>
+            <li>
+              <button type="button">
+                <span class="icon"><i class="fas fa-street-view"></i></span>
+                <small>Direction</small>
+              </button>
+            </li>
+            <li>
+              <button type="button">
+                <span class="icon"><i class="fas fa-rss"></i></span>
+                <small>Save</small>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- address-info-topbar - end -->
+
+      <!-- address-info-bottombar - start -->
+      <div class="address-info-bottombar clearfix">
+        <div class="address-info-left">
+          <div class="rating-star">
+            <span class="rating-point">4.5</span>
+            <ul>
+              <li><i class="fas fa-star"></i></li>
+              <li><i class="fas fa-star"></i></li>
+              <li><i class="fas fa-star"></i></li>
+              <li><i class="fas fa-star"></i></li>
+              <li><i class="fas fa-star-half"></i></li>
+            </ul>
+          </div>
+          <p class="m-0">105 reviews</p>
+        </div>
+
+        <div class="address-info-right">
+          <button type="button" class="map-larger-btn">
+            view larger map
+          </button>
+        </div>
+      </div>
+      <!-- address-info-bottombar - end -->
+        
+    </div>
+    <div id="google-map">
+      <div id="googleMaps" class="google-map-container"></div>
+    </div>
+  </section>
+  <!-- google map - end
+  ================================================== -->
+
+
+
+
+    @include('partials.footer')
+
+
 @endsection

@@ -1,0 +1,95 @@
+<?php
+
+namespace App\Http\Controllers\ServiceProvider;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\ServiceProvider;
+use Auth, Validator, Hash , Session;
+
+class ServiceAuthController extends Controller
+{
+    public function register_view(){
+        return view('serviceProvider.register');
+    }
+    public function register(Request $request){
+              // Define your validation rules
+    $rules = [
+        'name'=>'required',
+        'email' => 'required|email|unique:service_providers',
+        'password' => 'required',
+    ];
+
+    // Create a validator instance
+    $validator = Validator::make($request->all(), $rules);
+
+    // Check if validation fails
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput(); // Optionally, to repopulate the form with the old input
+    }
+
+    ServiceProvider::create([
+        'name'=>$request->name,
+        'email'=>$request->email,
+        'password'=>Hash::make($request->password)
+    ]);
+
+  
+    if(Auth::guard('service_provider')->attempt(['email' => $request->email, 'password' => $request->password])){
+        return  redirect()->route('serviceprovider.dashboard');
+    }else{
+        
+        return  redirect()->back()
+        ->withErrors(['Invalid Careditals'])
+        ->withInput();
+    }
+
+    }
+    public function login_view(){
+        if(Auth::guard('service_provider')->check()){
+            return redirect()->route('serviceprovider.dashboard');
+        }
+        return view('serviceProvider.login');
+    }
+
+    public function login(Request $request){
+
+
+          // Define your validation rules
+    $rules = [
+        'email' => 'required|email',
+        'password' => 'required',
+    ];
+
+    // Create a validator instance
+    $validator = Validator::make($request->all(), $rules);
+
+    // Check if validation fails
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput(); // Optionally, to repopulate the form with the old input
+    }
+    
+  
+    if(Auth::guard('service_provider')->attempt(['email' => $request->email, 'password' => $request->password])){
+        return  redirect()->route('serviceprovider.dashboard');
+    }else{
+        
+        return  redirect()->back()
+        ->withErrors(['Invalid Careditals'])
+        ->withInput();
+    }
+
+        
+    }
+    public function logout(){
+        Session::flush();
+        
+        Auth::logout();
+
+        return redirect('serviceprovider');
+    }
+}

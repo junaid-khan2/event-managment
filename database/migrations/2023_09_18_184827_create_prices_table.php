@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('service_id')->unsigned()->nullable(); 
             $table->string('name')->nullable();
-            $table->json('features')->nullable();
-            $table->integer('price');
-            $table->longText('description');
+            $table->longText('features')->nullable();
+            $table->string('price')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

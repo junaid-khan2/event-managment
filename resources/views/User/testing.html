@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pricing Plans</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Pricing Plans</h1>
+    <form id="pricingForm">
+      <div id="pricingContainer">
+        <!-- Pricing plans will be dynamically added here -->
+      </div>
+      <button type="button" class="btn btn-primary" onclick="addPricingPlan()">Add Pricing Plan</button>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    let planCount = 1;
+
+    function addPricingPlan() {
+      const pricingContainer = document.getElementById('pricingContainer');
+
+      const pricingPlan = document.createElement('div');
+      pricingPlan.classList.add('card', 'mb-3');
+
+      const pricingPlanHeader = document.createElement('div');
+      pricingPlanHeader.classList.add('card-header');
+
+      const planNameInput = document.createElement('input');
+      planNameInput.type = 'text';
+      planNameInput.name = `planName${planCount}`;
+      planNameInput.placeholder = 'Plan Name';
+      planNameInput.classList.add('form-control', 'mb-2');
+
+      pricingPlanHeader.appendChild(planNameInput);
+
+      const pricingPlanBody = document.createElement('div');
+      pricingPlanBody.classList.add('card-body');
+
+      const featureContainer = document.createElement('div');
+      featureContainer.id = `featureContainer${planCount}`;
+
+      const addFeatureButton = document.createElement('button');
+      addFeatureButton.type = 'button';
+      addFeatureButton.classList.add('btn', 'btn-primary', 'mb-2');
+      addFeatureButton.innerText = 'Add Feature';
+      addFeatureButton.addEventListener('click', function() {
+        addFeature(planCount);
+      });
+
+      pricingPlanBody.appendChild(featureContainer);
+      pricingPlanBody.appendChild(addFeatureButton);
+
+      pricingPlan.appendChild(pricingPlanHeader);
+      pricingPlan.appendChild(pricingPlanBody);
+
+      pricingContainer.appendChild(pricingPlan);
+
+      planCount++;
+    }
+
+    function addFeature(planId) {
+      const featureContainer = document.getElementById(`featureContainer${planId}`);
+
+      const featureInput = document.createElement('input');
+      featureInput.type = 'text';
+      featureInput.name = `feature${planId}[]`;
+      featureInput.placeholder = 'Feature';
+      featureInput.classList.add('form-control', 'mb-2');
+
+      const priceInput = document.createElement('input');
+      priceInput.type = 'number';
+      priceInput.name = `price${planId}[]`;
+      priceInput.placeholder = 'Price';
+      priceInput.classList.add('form-control', 'mb-2');
+
+      featureContainer.appendChild(featureInput);
+      featureContainer.appendChild(priceInput);
+    }
+  </script>
+</body>
+</html>

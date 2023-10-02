@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned()->nullable(); 
             $table->bigInteger('event_id')->unsigned()->nullable(); 
-            $table->string('name');
-            $table->string('image');
-            $table->string('location');
+            $table->string('name')->nullable();
+            $table->string('image')->nullable();
+            $table->string('location')->nullable();
             $table->boolean('status')->default(1);
             $table->boolean('avalibality_for_home')->default(1);
-            $table->text('content');
+            $table->text('short_description')->nullable();
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }
