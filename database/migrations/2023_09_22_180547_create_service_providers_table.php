@@ -18,6 +18,13 @@ return new class extends Migration
             $table->string('phone_no')->nullable();
             $table->string('password');
             $table->string('image')->nullable();
+            $table->boolean('status')->default(0);
+            $table->string('whatsapp')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('linkdin')->nullable();
+            $table->string('tiktok')->nullable();
             $table->timestamps();
         });
     }

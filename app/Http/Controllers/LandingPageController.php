@@ -29,7 +29,8 @@ class LandingPageController extends Controller
 
     public function services_show ($id){
         // return $id;
-        $data['service'] = Service::whereId($id)->with('price')->with('event')->first();
+        $data['service'] = Service::whereId($id)->with('price')->with('user')->with('event')->first();
+        
         return view('single_service',$data);
     }
     public function services(){

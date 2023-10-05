@@ -138,7 +138,9 @@ class ServiceMangementController extends Controller
     public function edit(string $id)
     {
         //
-        echo "working edit";
+        $data['data'] = Service::whereId($id)->with('price')->firstOrFail();
+        $data['event'] = Event::all();
+        return view('serviceProvider.services.edit',$data);
     }
 
     /**
@@ -147,7 +149,64 @@ class ServiceMangementController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        echo "working update";
+        
+        if($request->has('image')){
+            $imageName = time().'.'.$request->image->extension();
+
+            // Public Folder
+            $request->image->move(public_path('uploads/services/images'), $imageName);
+        }else{
+            $imageName = '';
+        }
+
+        
+        $data = Service::whereId($id)->update([
+            
+            'event_id'=>$request->event,
+            'name'=>$request->name,
+            'image'=>$imageName,
+            'location'=>$request->location,
+            'short_description'=>$request->short_description,
+            'content'=>$request->description,
+
+        ]);
+
+        if($request->basicfeatureid){
+            Price::whereId($request->basicfeatureid)->update([
+                
+                'name'=>'Basic Plain',
+                'features'=>json_encode($request->basicfeature),
+                'price'=>$request->basicprice,
+
+            ]);
+        }
+        if($request->standardfeatureid){
+            Price::whereId($request->standardfeatureid)->update([
+                'name'=>'Standard Plain',
+                'features'=>json_encode($request->standardfeature),
+                'price'=>$request->standardprice,
+
+            ]);
+        }
+        if($request->enterprisefeatureid){
+            Price::whereId($request->enterprisefeatureid)->update([
+       
+                'name'=>'EnterPrice Plain',
+                'features'=>json_encode($request->enterprisefeature),
+                'price'=>$request->enterpriseprice,
+
+            ]);
+        }
+        
+
+        if($data){
+             return redirect()->route('serviceprovider.service.index');
+        }else{
+            abort(401);
+        }
+
+       
+
     }
 
     /**
@@ -156,6 +215,15 @@ class ServiceMangementController extends Controller
     public function destroy(string $id)
     {
         //
-        echo "working destorry";
+        // echo "working destorry";
+        $service = Service::whereId($id)->delete();
+
+        $price = Price::whereIn('service_id',$id)->get()->delete();
+       
+        if($service && $price ){
+            return redirect()->route('serviceprovider.service.index');
+       }else{
+           abort(401);
+       }
     }
 }

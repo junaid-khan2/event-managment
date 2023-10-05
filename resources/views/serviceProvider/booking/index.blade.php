@@ -22,6 +22,7 @@
                             <th>phone</th>
                             <th>Service</th>
                             <th>Price</th>
+                            <th>Date</th>
                             <th>Description</th>
                             
                         </tr>
@@ -33,18 +34,20 @@
                             <th>phone</th>
                             <th>Service</th>
                             <th>Price</th>
+                            <th>Date</th>
                             <th>Description</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($data as $service)
+                        @foreach($bookings as $booking)
                         <tr>
-                          <td>Name</td>
-                          <td>email</td>
-                          <td>phone</td>
-                          <td>service</td>
-                          <td>price</td>
-                          <td>description</td>
+                          <td>{{$booking->name}}</td>
+                          <td>{{$booking->email}}</td>
+                          <td>{{$booking->phone}}</td>
+                          <td>{{$booking->service->name}}</td>
+                          <td>{{$booking->price->price}}</td>
+                          <td>{{$booking->created_at->format('d-m-Y')}}</td>
+                          <td>{{$booking->description}}</td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\ServiceProvider\ServiceAuthController;
 use App\Http\Controllers\ServiceProvider\ServiceDashboardController;
 use App\Http\Controllers\ServiceProvider\ServiceMangementController;
+use App\Http\Middleware\CheckStatus;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -32,7 +33,7 @@ Route::view('gallery', 'gallery')->name('gallery');
 Route::view('contact', 'contact')->name('contact');
 Route::post('contact', 'App\Http\Controllers\LandingpageController@contact_form')->name('contact');
 Route::get('/services', 'App\Http\Controllers\LandingpageController@services')->name('services');
-Route::get('/booking/{service}/{price}', 'App\Http\Controllers\LandingpageController@booking')->name('booking');
+Route::get('/booking/make/{service}/{price}', 'App\Http\Controllers\LandingpageController@booking')->name('booking.make');
 Route::post('booking' , 'App\Http\Controllers\LandingpageController@booking_form')->name('booking');
 
 
@@ -51,11 +52,16 @@ Route::post('/serviceprovider',[ServiceAuthController::class,'login'])->name('se
 Route::get('/serviceprovider/register',[ServiceAuthController::class,'register_view'])->name('serviceprovider.register');
 Route::post('/serviceprovider/register',[ServiceAuthController::class,'register'])->name('serviceprovider.register');
 
+Route::view('pendding/profile', 'serviceProvider.pendding_profile')->name('pendding.profile');
 
-Route::group(['prefix'=>'serviceprovider','as'=>'serviceprovider.','middleware' => ['auth:service_provider']], function() {
+
+Route::group(['prefix'=>'serviceprovider','as'=>'serviceprovider.','middleware' => ['auth:service_provider','checkStatus']], function() {
     Route::get('/logout', [ServiceAuthController::class,'logout'])->name('logout');
+    Route::get('/edit', [ServiceAuthController::class,'edit'])->name('edit');
+    Route::post('/update/{id}', [ServiceAuthController::class,'update'])->name('update');
     Route::get('/dashboard', [ServiceDashboardController::class, 'index'])->name('dashboard');
     Route::get('/booking', [ServiceDashboardController::class, 'booking'])->name('booking');
+    Route::get('/booking/today', [ServiceDashboardController::class, 'booking_today'])->name('booking.today');
     Route::resource('service', ServiceMangementController::class);
 });
 
@@ -65,6 +71,20 @@ Route::post('/admin',[AdminAuthController::class,'login'])->name('admin.login');
 Route::group(['prefix'=>'admin','as'=>'admin.','middleware' => ['auth:admin']], function() {
     Route::get('/logout', [AdminAuthController::class,'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // provider
+
+    Route::get('/provider/all', [DashboardController::class, 'provider_all'])->name('provider.all');
+
+    Route::get('/provider/unverfied', [DashboardController::class, 'provider_unverfied'])->name('provider.unverfived');
+    Route::get('/provider/edit/{id}', [DashboardController::class, 'provider_edit'])->name('provider.edit');
+    Route::post('/provider/update/{id}', [DashboardController::class, 'provider_update'])->name('provider.update');
+
+
+    Route::get('/booking/today', [DashboardController::class, 'booking_today'])->name('booking.today');
+    Route::get('/booking/all', [DashboardController::class, 'booking_all'])->name('booking.all');
+
+
     Route::resource('event', EventController::class);
     Route::resource('service', ServiceController::class);
 });

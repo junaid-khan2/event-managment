@@ -133,7 +133,7 @@
                                     </div>
 
                                     <div class="pricing-footer clearfix">
-                                        <a href="{{route('booking',['service'=>$service->id,'price'=>$service->price[0]->id])}}" class="custom-btn">get this</a>
+                                        <a href="{{route('booking.make',['service'=>$service->id,'price'=>$service->price[0]->id])}}" class="custom-btn">get this</a>
                                     </div>
                                 </li>
 
@@ -155,7 +155,7 @@
                                     </div>
 
                                     <div class="pricing-footer clearfix">
-                                        <a href="{{route('booking',['service'=>$service->id,'price'=>$service->price[1]->id])}}" class="custom-btn">get this</a>
+                                        <a href="{{route('booking.make',['service'=>$service->id,'price'=>$service->price[1]->id])}}" class="custom-btn">get this</a>
                                     </div>
                                 </li>
 
@@ -176,7 +176,7 @@
                                     </div>
 
                                     <div class="pricing-footer clearfix">
-                                        <a href="{{route('booking',['service'=>$service->id,'price'=>$service->price[2]->id])}}" class="custom-btn">get this</a>
+                                        <a href="{{route('booking.make',['service'=>$service->id,'price'=>$service->price[2]->id])}}" class="custom-btn">get this</a>
                                     </div>
                                 </li>
                                 
@@ -195,39 +195,24 @@
                 <div class="col-lg-4 col-md-12 col-sm-12">
                     <div class="sidebar-section">
 
-                        <!-- Add to Calendar - start -->
-                        <div title="Add to Calendar" class="addeventatc">
-                            Add to Calendar
-                            <span class="start">06/18/2015 09:00 AM</span>
-                            <span class="end">06/18/2015 11:00 AM</span>
-                            <span class="timezone">Europe/Paris</span>
-                            <span class="title">Summary of the event</span>
-                            <span class="description">Description of the event</span>
-                            <span class="location">Location of the event</span>
-                            <span class="organizer">Organizer</span>
-                            <span class="organizer_email">Organizer e-mail</span>
-                            <span class="all_day_event">false</span>
-                            <span class="date_format">MM/DD/YYYY</span>
+                        <!-- section-title - start -->
+                        <div class="section-title mb-30">
+                            <h2 class="big-title">Provider <strong>info</strong></h2>
                         </div>
-                        <!-- Add to Calendar - end -->
-
-                        <!-- map-wrapper - start -->
-                        <div class="map-wrapper mb-30">
-
-                            <!-- section-title - start -->
-                            <div class="section-title mb-30">
-                                <h2 class="big-title">event <strong>location</strong></h2>
-                            </div>
-                            <!-- section-title - end -->
-
-                            
-
-                        </div>
-                        <!-- map-wrapper - end -->
+                        <!-- section-title - end -->
 
                         <!-- location-wrapper - start -->
-                        <div class="location-wrapper mb-30">
+                        <div class="location-wrapper bg-white">
+                            <div>
+                                <div class="text-center my-2">
+                                    <img class="rounded-circle" height="100" width="100" src="{{asset('uploads/profile/'.$service->user->image)}}" alt="img">
+                                </div>
+                                <div class="text-center my-2">
+                                    <h3>{{$service->user->name}}</h3>
+                                </div>
+                            </div>
                             <div class="title-wrapper">
+                               
                                 <small class="up-arrow-icon">
                                     <i class="fas fa-chevron-circle-up"></i>
                                 </small>
@@ -236,18 +221,40 @@
                                 </span>
                                 <div class="title-content">
                                     <small>Service location</small>
-                                    
+                                    <h3>{{$service->location}}</h3>
                                 </div>
                             </div>
-                            <div class="location-info-list ul-li-block clearfix">
-                               
-                                {{$service->location}}
+                            <div class="contact-links ul-li-block clearfix">
+                                <ul>
+                                    <li>
+                                       <a href="https://wa.me/{{$service->user->whatsapp}}" target="_blank" >
+                                            <span class="icon">
+                                                <i class="fab fa-whatsapp"></i>
+                                            </span>
+                                            Whatsapp
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{$service->user->facebook}}" target="_blank">
+                                            <span class="icon">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </span>
+                                            Facebook
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{$service->user->twitter}}" target="_blank">
+                                            <span class="icon">
+                                                <i class="fab fa-twitter"></i>
+                                            </span>
+                                            twitter
+                                        </a>
+                                    </li>
+                                </ul>
+                                <a href="tel:{{$service->user->phone_no}}" class="custom-btn">CONTACT US NOW</a>
                             </div>
-                           
-                          
                         </div>
                         <!-- location-wrapper - end -->
-
                         
                     </div>
                 </div>

@@ -87,7 +87,12 @@ class EventController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['event'] = Event::whereId($id)->firstOrFail();
+
+        return view('admin.Event.edit',$data);
+
+
+
     }
 
     /**
@@ -96,6 +101,28 @@ class EventController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        if($request->has('image')){
+            $imageName = time().'.'.$request->image->extension();
+
+            // Public Folder
+            $request->image->move(public_path('uploads/images'), $imageName);
+        }else{
+            $imageName = '';
+        }
+
+
+       $data = Event::whereId($id)->update([
+            'name'=>$request->name,
+            'image'=>$imageName,
+            'short_description'=>$request->short_description,
+            'content'=>$request->description
+
+        ]);
+        if($data){
+             return redirect()->route('admin.event.index');
+        }else{
+            abort(401);
+        }
     }
 
     /**

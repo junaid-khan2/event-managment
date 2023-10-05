@@ -39,8 +39,12 @@
                             <th>{{$service->short_description}}</th>
                             <td>
                                 <a href="{{route('serviceprovider.service.show',[$service->id])}}" class="btn btn-success btn-sm">View</a>
-                                <a href="" class="btn btn-info btn-sm">Edit</a>
-                                <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{{route('serviceprovider.service.edit',[$service->id])}}" class="btn btn-info btn-sm">Edit</a>
+                                <form method="post" action="{{route('serviceprovider.service.destroy',[$service->id])}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

@@ -13,17 +13,27 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        if(Auth::guard('admin')){
+        // if(Auth::guard('admin')){
 
-            return $request->expectsJson() ? null : route('admin.login');
+        //     return $request->expectsJson() ? null : route('admin.login');
 
-        }else if (Auth::guard('service_provider')){
+        // }else if (Auth::guard('service_provider')){
 
-            return $request->expectsJson() ? null : route('service_provider.login');
+        //     return $request->expectsJson() ? null : route('service_provider.login');
 
-        }else{
+        // }else{
 
-            return $request->expectsJson() ? null : route('login');
+        //     return $request->expectsJson() ? null : route('service_provider.login');
+        // }
+
+        if (! $request->expectsJson()) {
+            if ($request->routeIs('serviceprovider.dashboard')) {
+                return route('serviceprovider.login'); // Redirect to service_provider.login for service_provider guard
+            } elseif ($request->routeIs('admin.dashboard')) {
+                return route('admin.login'); // Redirect to admin.login for admin guard
+            }
+            
+            return route('serviceprovider.login'); // Redirect to the default login route for other guards
         }
     }       
 }

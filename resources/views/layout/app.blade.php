@@ -37,8 +37,6 @@
     @stack('css')
 
 	</head>
-
-
   
 	<body @if(Route::currentRouteName() == 'index') @else class="default-header-p" @endif>
     

@@ -317,7 +317,7 @@
 
 
                                 <!-- pagination - start -->
-                                <div class="pagination ul-li clearfix">
+                                {{-- <div class="pagination ul-li clearfix">
                                     <ul>
                                         <li class="page-item prev-item">
                                             <a class="page-link" href="#!">Prev</a>
@@ -331,7 +331,7 @@
                                             <a class="page-link" href="#!">Next</a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> --}}
                                 <!-- pagination - end -->
 
                             </div>

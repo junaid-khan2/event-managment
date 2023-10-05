@@ -14,7 +14,18 @@ class ServiceProvider extends Authenticatable
     protected $guard = 'service_provider';
 
     protected $fillable = [
-        'name', 'email', 'password','phone_no','image'
+        'name', 
+        'email',
+        'password',
+        'phone_no',
+        'image',
+        'status',
+        'whatsapp',
+        'facebook',
+        'instagram',
+        'twitter',
+        'linkdin',
+        'tiktok',
     ];
     protected $hidden = [
       'password', 

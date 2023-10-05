@@ -83,7 +83,8 @@ Home
                   <div class="user-search-btn-group ul-li clearfix">
                     <ul>
                       <li>
-                        <a href="#login-modal" class="login-modal-btn">
+                        
+                        <a href="{{route('serviceprovider.dashboard')}}" >
                           <i class="fas fa-user"></i>
                         </a>
                         <div id="login-modal" class="reglog-modal-wrapper mfp-hide clearfix" style="background-image: url(assets/images/login-modal-bg.jpg);">
@@ -475,7 +476,7 @@ Home
 
   <!-- slide-section - start
   ================================================== -->
-  <section id="slide-section" class="slide-section clearfix">
+  {{-- <section id="slide-section" class="slide-section clearfix">
     <div id="main-carousel1" class="main-carousel1 owl-carousel owl-theme">
 
       <div class="item" style="background-image: url({{asset('assets/images/slider/slider-bg1.jpg')}});">
@@ -534,9 +535,32 @@ Home
       </div>
 
     </div>
-  </section>
+  </section> --}}
   <!-- slide-section - end
   ================================================== -->
+
+  <section id="slider-section" class="slide-section" clearfix>
+    <div id="main-carousel1" class="main-carousel1 owl-carousel owl-theme">
+      <div class="item" style="background-image: url({{asset('assets/images/slider/slider-bg3.jpg')}});">
+        <div class="overlay-black">
+          <div class="container">
+            <div class="slider-item-content">
+
+              <span class="medium-text">Webify</span>
+              <h1 class="big-text">Event Planner</h1>
+              <small class="small-text">every event sould be perfect</small>
+
+              <div class="link-groups">
+                <a href="{{route('about')}}" class="about-btn custom-btn">about us</a>
+                <a href="{{route('services')}}" class="start-btn">get started!</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
 

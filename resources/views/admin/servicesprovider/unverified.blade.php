@@ -2,43 +2,47 @@
 @section('content')
 
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Tables</h1>
+        <h1 class="mt-4">Provider</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="{{route('admin')}}">Dashboard</a></li>
-            <li class="breadcrumb-item active">Event</li>
+            <li class="breadcrumb-item active">Provider</li>
         </ol>
       
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                Event Table
+                Providers UnVerfied
             </div>
             <div class="card-body">
                 <table id="datatablesSimple">
                     <thead>
                         <tr>
-                            <th>Name</th>
                             <th>Image</th>
-                            <th>Description</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone NO</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Name</th>
                             <th>Image</th>
-                            <th>Description</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone NO</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($data as $event)
+                        @foreach($providers as $provider)
                         <tr>
-                            <th>{{$event->name}}</th>
-                            <th><img height="100" width="100" src="{{asset('uploads/images/'.$event->image)}}" alt="logo"></th>
-                            <th>{{$event->short_description}}</th>
+                            
+                            <th><img height="100" width="100" src="{{asset('uploads/profile/'.$provider->image)}}" alt="logo"></th>
+                            <th>{{$provider->name}}</th>
+                            <th>{{$provider->email}}</th>
+                            <th>{{$provider->phone_no}}</th>
                             <td>
-                                <a href="{{route('admin.event.edit',[$event->id])}}" class="btn btn-info">Edit</a>
+                                <a href="{{route('admin.provider.edit',[$provider->id])}}" class="btn btn-info">Edit</a>
                             </td>
                         </tr>
                         @endforeach

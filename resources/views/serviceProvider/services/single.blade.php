@@ -2,37 +2,49 @@
 @section('content')
 
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Services</h1>
+        <h1 class="mt-4">Service</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="{{route('admin')}}">Dashboard</a></li>
-            <li class="breadcrumb-item active">Services</li>
+            <li class="breadcrumb-item"><a href="{{route('serviceprovider.dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item active">View Service</li>
         </ol>
-        <div class="container">
-                <img src="{{asset('uploads/services/images/'.$data->image)}}" class="img-fluid" alt="img">
-                <h3 class="h3 text-center mt-5">{{$data->name}}</h3>
-        </div>
-        <div class="container">
-            <pre>
+        <div class="card mb-4">
+            <img class="card-img-top" src="{{asset('uploads/services/images/'.$data->image)}}" alt="Card image cap">
+            <div class="card-body">
+              <h3 class="card-title">{{$data->name}}</h3>
+              <h6 class="card-title">{{$data->location}}</h6>
+              <div class="card-text">
+                {{$data->short_description}}
+              </div>
+              <pre>
                 {!! $data->content !!}
-            </pre>
+              </pre>
+            </div>
+            
         </div>
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-            <div class="col-md-4">
-                <div class="card">
+                @foreach ($data->price as $price)
+                <div class="col-md-4">
+                    <div class="card">
+                        <h5 class="card-header">{{$price->name}}</h5>
                         <div class="card-body">
-                            <h5 class="card-title">Basic Plan</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">For Individuals</h6>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <h3 class="card-title">$19/month</h3>
-                            <a href="#" class="btn btn-primary">Get Started</a>
+                            @foreach(json_decode($price->features) as $feature)
+                            <ul>
+                                <li>{{$feature}}</li>
+                            </ul>
+                            @endforeach
+                        </div>
+                        <div class="card-footer">
+                            <h3 class="card-title">{{$price->price}}</h3>
                         </div>
                     </div>
                 </div>
+                @endforeach
+               
             </div>
         </div>
-
-
+    
     </div>
+
 @endsection

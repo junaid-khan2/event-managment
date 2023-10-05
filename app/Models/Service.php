@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Price;
 use App\Models\Event;
+use App\Models\ServiceProvider;
 
 class Service extends Model
 {
@@ -17,6 +18,18 @@ class Service extends Model
     }
     public function event(){
         return $this->belongsTo(Event::class,'event_id','id');
+    }
+    public function user(){
+        return $this->belongsTo(ServiceProvider::class,'user_id','id');
+    }
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    public function users()
+    {
+        return $this->hasManyThrough(User::class, Booking::class);
     }
     
 }
