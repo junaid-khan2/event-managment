@@ -33,6 +33,7 @@ Route::view('gallery', 'gallery')->name('gallery');
 Route::view('contact', 'contact')->name('contact');
 Route::post('contact', 'App\Http\Controllers\LandingpageController@contact_form')->name('contact');
 Route::get('/services', 'App\Http\Controllers\LandingpageController@services')->name('services');
+Route::get('service/search', 'App\Http\Controllers\LandingpageController@service_search')->name('service.search');
 Route::get('/booking/make/{service}/{price}', 'App\Http\Controllers\LandingpageController@booking')->name('booking.make');
 Route::post('booking' , 'App\Http\Controllers\LandingpageController@booking_form')->name('booking');
 

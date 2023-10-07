@@ -23,20 +23,83 @@ class LandingPageController extends Controller
     }
 
     public function services_list(Request $request){
-        return $request;
-        return View();
+        $service_id =  $request->id;
+        $data['service'] =  Service::whereId($service_id)->get();
+        $data['event'] = Event::all();
+        return view('services',$data);
+       
     }
 
     public function services_show ($id){
         // return $id;
         $data['service'] = Service::whereId($id)->with('price')->with('user')->with('event')->first();
+        $data['event'] = Event::all();
         
         return view('single_service',$data);
     }
     public function services(){
         // return ['working'];
         $data['service'] =  Service::get();
+        $data['event'] = Event::all();
         return view('services',$data);
+    }
+
+    public function service_search(Request $request){
+        $keyword = $request->input('keyword');
+    $eventName = $request->input('event_name');
+    $minPrice = $request->input('mix_price');
+    $maxPrice = $request->input('max_price');
+
+    // $services = Service::query()
+    //     ->when($keyword, function ($query) use ($keyword) {
+    //         $query->where(function ($query) use ($keyword) {
+    //             $query->where('name', 'like', '%' . $keyword . '%')
+    //                 ->orWhereHas('location', function ($query) use ($keyword) {
+    //                     $query->where('location', 'like', '%' . $keyword . '%');
+    //                 });
+    //         });
+    //     })
+    //     ->when($eventName, function ($query) use ($eventName) {
+    //         $query->whereHas('event', function ($query) use ($eventName) {
+    //             $query->where('name', 'like', '%' . $eventName . '%');
+    //         });
+    //     })
+    //     ->when($minPrice, function ($query) use ($minPrice) {
+    //         $query->whereHas('price', function ($query) use ($minPrice) {
+    //             $query->where('value', '>=', $minPrice);
+    //         });
+    //     })
+    //     ->when($maxPrice, function ($query) use ($maxPrice) {
+    //         $query->whereHas('price', function ($query) use ($maxPrice) {
+    //             $query->where('value', '<=', $maxPrice);
+    //         });
+    //     })
+    //     ->get();
+            $data['service'] = Service::with(['event', 'price'])
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%')
+                ->orWhere('location','like','%'.$keyword.'%');
+            })
+            ->when($eventName, function ($query) use ($eventName) {
+                $query->whereHas('event', function ($query) use ($eventName) {
+                    $query->where('name', 'like', '%' . $eventName . '%');
+                });
+            })
+            ->when($minPrice, function ($query) use ($minPrice) {
+                $query->whereHas('price', function ($query) use ($minPrice) {
+                    $query->where('price', '>=', $minPrice);
+                });
+            })
+            ->when($maxPrice, function ($query) use ($maxPrice) {
+                $query->whereHas('price', function ($query) use ($maxPrice) {
+                    $query->where('price', '<=', $maxPrice);
+                });
+            })
+            ->get();
+
+
+            $data['event'] = Event::all();
+            return view('services',$data);
     }
 
     public function booking($service, $price){

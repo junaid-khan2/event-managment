@@ -805,26 +805,13 @@ Home
           <div class="col-lg-8 col-md-12 col-sm-12">
             <div class="event-tab-menu clearfix">
               <ul class="nav">
+                @foreach($event as $item)
                 <li>
-                  <a data-toggle="tab" href="#conference-event">
-                    <strong><i class="fas fa-microphone"></i> conference</strong> event
+                  <a data-toggle="tab" href="#{{$item->id}}">
+                    <strong><i></i>{{$item->name}}</strong>
                   </a>
                 </li>
-                <li>
-                  <a data-toggle="tab" href="#playground-event">
-                    <strong><i class="fas fa-birthday-cake"></i> play ground</strong> event
-                  </a>
-                </li>
-                <li>
-                  <a class="active" data-toggle="tab" href="#musical-event">
-                    <strong><i class="fas fa-music"></i> musical</strong> event
-                  </a>
-                </li>
-                <li>
-                  <a data-toggle="tab" href="#other-event">
-                    <strong><i class="far fa-check-square"></i> other</strong> event
-                  </a>
-                </li>
+                @endforeach
               </ul>
             </div>
           </div>
@@ -836,12 +823,12 @@ Home
       <!-- tab-content - start -->
       <div class="tab-content">
 
-        <!-- conference-event - start -->
-        <div id="conference-event" class="tab-pane fade">
+        @foreach ($event as $item1)
+        <div id="{{$item1->id}}" class="tab-pane fade">
           <div class="row">
 
            @foreach ($services as $item)
-            @if($item->event->name == 'Wedding Event')
+            @if($item->event->id == $item1->id)
                <!-- event-item - start -->
                <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="event-item clearfix">
@@ -879,224 +866,10 @@ Home
             @endif
            @endforeach
 
-
-            <div class="col-lg-12 col-md-12 col-sm-12">
-              <div class="pagination ul-li clearfix">
-                <ul>
-                  <li class="page-item prev-item">
-                    <a class="page-link" href="#">Prev</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">01</a></li>
-                  <li class="page-item active"><a class="page-link" href="#">02</a></li>
-                  <li class="page-item"><a class="page-link" href="#">03</a></li>
-                  <li class="page-item"><a class="page-link" href="#">04</a></li>
-                  <li class="page-item"><a class="page-link" href="#">05</a></li>
-                  <li class="page-item next-item">
-                    <a class="page-link" href="#">Next</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
           </div>
         </div>
-        <!-- conference-event - end -->
+        @endforeach
 
-        <!-- playground-event - start -->
-        <div id="playground-event" class="tab-pane fade">
-          <div class="row">
-
-            @foreach ($services as $item)
-            @if($item->event->name == 'playground-event')
-               <!-- event-item - start -->
-               <div class="col-lg-6 col-md-12 col-sm-12">
-                <div class="event-item clearfix">
-  
-                  <!-- event-image - start -->
-                  <div class="event-image">
-                    {{-- <div class="post-date">
-                      <span class="date">26</span>
-                      <small class="month">june</small>
-                    </div> --}}
-                    <img src="{{asset('uploads/services/images/'.$item->image)}}" alt="Image_not_found">
-                  </div>
-                  <!-- event-image - end -->
-  
-                  <!-- event-content - start -->
-                  <div class="event-content">
-                    <div class="event-title mb-15">
-                      <h3 class="title">
-                        {{$item->name}}
-                      </h3>
-                      {{-- <span class="ticket-price yellow-color">Tickets from $52</span> --}}
-                    </div>
-                    <div class="event-post-meta ul-li-block mb-30">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi, dicta.
-                    </div>
-                    <a href="{{route('services.view', ['id'=>$item->id])}}" class="tickets-details-btn">
-                      View & details
-                    </a>
-                  </div>
-                  <!-- event-content - end -->
-  
-                </div>
-              </div>
-              <!-- event-item - end -->
-            @endif
-            @endforeach
-
-            <div class="col-lg-12 col-md-12 col-sm-12">
-              <div class="pagination ul-li clearfix">
-                <ul>
-                  <li class="page-item prev-item">
-                    <a class="page-link" href="#">Prev</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">01</a></li>
-                  <li class="page-item active"><a class="page-link" href="#">02</a></li>
-                  <li class="page-item"><a class="page-link" href="#">03</a></li>
-                  <li class="page-item"><a class="page-link" href="#">04</a></li>
-                  <li class="page-item"><a class="page-link" href="#">05</a></li>
-                  <li class="page-item next-item">
-                    <a class="page-link" href="#">Next</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <!-- playground-event - end -->
-
-        <!-- musical-event - start -->
-        <div id="musical-event" class="tab-pane fade in active show">
-          <div class="row">
-
-            @foreach ($services as $item)
-            @if($item->event->name == 'musical-event')
-               <!-- event-item - start -->
-               <div class="col-lg-6 col-md-12 col-sm-12">
-                <div class="event-item clearfix">
-  
-                  <!-- event-image - start -->
-                  <div class="event-image">
-                    {{-- <div class="post-date">
-                      <span class="date">26</span>
-                      <small class="month">june</small>
-                    </div> --}}
-                    <img src="{{asset('uploads/services/images/'.$item->image)}}" alt="Image_not_found">
-                  </div>
-                  <!-- event-image - end -->
-  
-                  <!-- event-content - start -->
-                  <div class="event-content">
-                    <div class="event-title mb-15">
-                      <h3 class="title">
-                        {{$item->name}}
-                      </h3>
-                      {{-- <span class="ticket-price yellow-color">Tickets from $52</span> --}}
-                    </div>
-                    <div class="event-post-meta ul-li-block mb-30">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi, dicta.
-                    </div>
-                    <a href="{{route('services.view', ['id'=>$item->id])}}" class="tickets-details-btn">
-                      View & details
-                    </a>
-                  </div>
-                  <!-- event-content - end -->
-  
-                </div>
-              </div>
-              <!-- event-item - end -->
-            @endif
-           @endforeach
-
-
-            <div class="col-lg-12 col-md-12 col-sm-12">
-              <div class="pagination ul-li clearfix">
-                <ul>
-                  <li class="page-item prev-item">
-                    <a class="page-link" href="#">Prev</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">01</a></li>
-                  <li class="page-item active"><a class="page-link" href="#">02</a></li>
-                  <li class="page-item"><a class="page-link" href="#">03</a></li>
-                  <li class="page-item"><a class="page-link" href="#">04</a></li>
-                  <li class="page-item"><a class="page-link" href="#">05</a></li>
-                  <li class="page-item next-item">
-                    <a class="page-link" href="#">Next</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <!-- musical-event - end -->
-
-        <!-- other-event - start -->
-        <div id="other-event" class="tab-pane fade">
-          <div class="row">
-
-            @foreach ($services as $item)
-            @if($item->event->name !== 'musical-event' && $item->event->name !== 'playground-event' && $item->event->name !== 'conference-event')
-               <!-- event-item - start -->
-               <div class="col-lg-6 col-md-12 col-sm-12">
-                <div class="event-item clearfix">
-  
-                  <!-- event-image - start -->
-                  <div class="event-image">
-                    {{-- <div class="post-date">
-                      <span class="date">26</span>
-                      <small class="month">june</small>
-                    </div> --}}
-                    <img src="{{asset('uploads/services/images/'.$item->image)}}" alt="Image_not_found">
-                  </div>
-                  <!-- event-image - end -->
-  
-                  <!-- event-content - start -->
-                  <div class="event-content">
-                    <div class="event-title mb-15">
-                      <h3 class="title">
-                        {{$item->name}}
-                      </h3>
-                      {{-- <span class="ticket-price yellow-color">Tickets from $52</span> --}}
-                    </div>
-                    <div class="event-post-meta ul-li-block mb-30">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi, dicta.
-                    </div>
-                    <a href="{{route('services.view', ['id'=>$item->id])}}" class="tickets-details-btn">
-                      View & details
-                    </a>
-                  </div>
-                  <!-- event-content - end -->
-  
-                </div>
-              </div>
-              <!-- event-item - end -->
-            @endif
-           @endforeach
-
-            <div class="col-lg-12 col-md-12 col-sm-12">
-              <div class="pagination ul-li clearfix">
-                <ul>
-                  <li class="page-item prev-item">
-                    <a class="page-link" href="#">Prev</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">01</a></li>
-                  <li class="page-item active"><a class="page-link" href="#">02</a></li>
-                  <li class="page-item"><a class="page-link" href="#">03</a></li>
-                  <li class="page-item"><a class="page-link" href="#">04</a></li>
-                  <li class="page-item"><a class="page-link" href="#">05</a></li>
-                  <li class="page-item next-item">
-                    <a class="page-link" href="#">Next</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <!-- other-event - end -->
 
       </div>
       <!-- tab-content - end -->

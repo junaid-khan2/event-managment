@@ -1,10 +1,5 @@
 @extends('layout.app')
 @push('css')
-    <style>
-        body{
-            background: red;
-        }
-    </style>
 @endpush
 @section('title')
     Services
@@ -38,7 +33,7 @@
     <!-- breadcrumb-section - start
     ================================================== -->
     <section id="breadcrumb-section" class="breadcrumb-section clearfix">
-        <div class="jarallax" style="background-image: url(assets/images/breadcrumb/0.breadcrumb-bg.jpg);">
+        <div class="jarallax" style="background-image: url({{asset('assets/images/breadcrumb/0.breadcrumb-bg.jpg')}});">
             <div class="overlay-black">
                 <div class="container">
                     <div class="row justify-content-center">
@@ -75,7 +70,7 @@
 
     <!-- event-search-section - start
     ================================================== -->
-    <section id="event-search-section" class="event-search-section clearfix" style="background-image: url(assets/images/special-offer-bg.png);">
+    <section id="event-search-section" class="event-search-section clearfix" style="background-image: url({{asset('assets/images/special-offer-bg.png')}});">
         <div class="container">
             <div class="row">
 
@@ -91,24 +86,36 @@
                 <!-- search-form - start -->
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <div class="search-form form-wrapper">
-                        <form action="#!">
+                        <form action="{{route('service.search')}}" method="GET">
 
                             <ul>
                                 <li>
                                     <span class="title">Services keyword</span>
                                     <div class="form-item">
-                                        <input type="search" placeholder="Event name,location,etc">
+                                        <input value="{{ request('keyword') }}" name="keyword" type="search" placeholder="Event name,location,etc">
                                     </div>
                                 </li>
                              
                                 <li>
                                     <span class="title">Services category</span>
-                                    <select id="event-category-select">
-                                        <option selected="">Conference</option>
-                                        <option value="1">Option 1</option>
-                                        <option value="2">Option 2</option>
-                                        <option value="3">Option 3</option>
+                                    <select name="event_name" id="event-category-select">
+                                        <option value="{{ request('event_name') }}" selected >{{ request('event_name') }}</option>
+                                       @foreach ($event as $item)
+                                           <option value="{{$item->name}}">{{$item->name}}</option>
+                                       @endforeach
                                     </select>
+                                </li>
+                                <li>
+                                    <span class="title mt-2">Min Price</span>
+                                    <div class="form-item">
+                                        <input value="{{ request('mix_price') }}" placeholder="Min Price" type="search" name="mix_price" id="">
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="title mt-2">Max Price</span>
+                                    <div class="form-item">
+                                        <input value="{{ request('max_price') }}" placeholder="Max Price" type="search" name="max_price" id="">
+                                    </div>
                                 </li>
                                 <li>
                                     <button type="submit" class="submit-btn">search event now</button>
@@ -279,7 +286,7 @@
                         <div id="grid-style" class="tab-pane fade in active show">
                             <div class="row justify-content-center">
 
-                                @foreach ($service as $item)
+                                @forelse ($service as $item)
                                     <!-- event-grid-item - start -->
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="event-grid-item">
@@ -311,8 +318,15 @@
                                         <!-- event-content - end -->
                                     </div>
                                 </div>
+                                
                                 <!-- event-grid-item - end -->
-                                @endforeach
+                                @empty
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="text-center text-danger">
+                                        <h6 class="h6">Service Not Found !</h6>
+                                    </div>
+                                </div>
+                                @endforelse
                                 
 
 
