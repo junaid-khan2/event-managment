@@ -27,10 +27,10 @@ Route::get('/', 'App\Http\Controllers\LandingpageController@index')->name('index
 Route::get('/services/list', 'App\Http\Controllers\LandingpageController@services_list')->name('services.list');
 Route::get('services/view/{id?}', 'App\Http\Controllers\LandingpageController@services_show')->name('services.view');
 Route::view('about', 'about')->name('about');
-Route::view('event', 'event')->name('event');
 Route::view('faq', 'faq')->name('faq');
 Route::view('gallery', 'gallery')->name('gallery');
 Route::view('contact', 'contact')->name('contact');
+Route::get('/event', 'App\Http\Controllers\LandingpageController@event')->name('event');
 Route::post('contact', 'App\Http\Controllers\LandingpageController@contact_form')->name('contact');
 Route::get('/services', 'App\Http\Controllers\LandingpageController@services')->name('services');
 Route::get('service/search', 'App\Http\Controllers\LandingpageController@service_search')->name('service.search');

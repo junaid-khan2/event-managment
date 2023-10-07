@@ -44,6 +44,11 @@ class LandingPageController extends Controller
         return view('services',$data);
     }
 
+    public function event(){
+        $data['event'] = Event::all();
+        return view('event',$data);
+    }
+
     public function service_search(Request $request){
         $keyword = $request->input('keyword');
     $eventName = $request->input('event_name');
