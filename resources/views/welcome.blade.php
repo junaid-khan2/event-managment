@@ -750,7 +750,7 @@ Home
 
   <!-- special-offer-section - start
   ================================================== -->
-  <section id="special-offer-section" class="special-offer-section clearfix" style="background-image: url(assets/images/special-offer-bg.png);">
+  {{-- <section id="special-offer-section" class="special-offer-section clearfix" style="background-image: url(assets/images/special-offer-bg.png);">
     <div class="container">
       <div class="row">
 
@@ -775,7 +775,7 @@ Home
 
       </div>
     </div>
-  </section>
+  </section> --}}
   <!-- special-offer-section - end
   ================================================== -->
 
@@ -998,7 +998,7 @@ Home
 
   <!-- speaker-section - start
   ================================================== -->
-  <section id="speaker-section" class="speaker-section clearfix">
+  {{-- <section id="speaker-section" class="speaker-section clearfix">
     <div class="jarallax" style="background-image: url(assets/images/speaker/Black-White-Dubai-Wallpaper.jpg);">
       <div class="overlay-white">
         <div class="container">
@@ -1269,7 +1269,7 @@ Home
         </div>
       </div>
     </div>
-  </section>
+  </section> --}}
   <!-- speaker-section - end
   ================================================== -->
 
