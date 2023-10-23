@@ -31,6 +31,7 @@ Route::view('faq', 'faq')->name('faq');
 Route::view('gallery', 'gallery')->name('gallery');
 Route::view('contact', 'contact')->name('contact');
 Route::get('/event', 'App\Http\Controllers\LandingpageController@event')->name('event');
+Route::get('event/search', 'App\Http\Controllers\LandingpageController@event_search')->name('event.search');
 Route::post('contact', 'App\Http\Controllers\LandingpageController@contact_form')->name('contact');
 Route::get('/services', 'App\Http\Controllers\LandingpageController@services')->name('services');
 Route::get('service/search', 'App\Http\Controllers\LandingpageController@service_search')->name('service.search');
@@ -72,6 +73,11 @@ Route::post('/admin',[AdminAuthController::class,'login'])->name('admin.login');
 Route::group(['prefix'=>'admin','as'=>'admin.','middleware' => ['auth:admin']], function() {
     Route::get('/logout', [AdminAuthController::class,'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+    // Contacts
+
+    Route::get('/contacts',[DashboardController::class,'contact'])->name('contact');
 
     // provider
 

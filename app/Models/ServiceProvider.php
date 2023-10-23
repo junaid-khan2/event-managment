@@ -20,6 +20,7 @@ class ServiceProvider extends Authenticatable
         'phone_no',
         'image',
         'status',
+        'proof_document',
         'whatsapp',
         'facebook',
         'instagram',

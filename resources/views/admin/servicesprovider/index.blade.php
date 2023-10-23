@@ -18,6 +18,7 @@
                     <thead>
                         <tr>
                             <th>Image</th>
+                            <th>Proof Document</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone NO</th>
@@ -28,9 +29,11 @@
                     <tfoot>
                         <tr>
                             <th>Image</th>
+                            Proof Document
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone NO</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -39,6 +42,7 @@
                         <tr>
                             
                             <th><img height="100" width="100" src="{{asset('uploads/profile/'.$provider->image)}}" alt="logo"></th>
+                            <th><img height="100" width="100" src="{{asset('uploads/proof_document/'.$provider->proof_document)}}" alt="logo"></th>
                             <th>{{$provider->name}}</th>
                             <th>{{$provider->email}}</th>
                             <th>{{$provider->phone_no}}</th>

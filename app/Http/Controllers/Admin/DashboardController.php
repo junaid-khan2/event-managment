@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ServiceProvider;
 use App\Models\Booking;
+use App\Models\Contact;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -74,5 +75,11 @@ class DashboardController extends Controller
 
         //  return $data;
     return view('admin.booking.index',$data);
+    }
+
+    public function contact(){
+        $data['contacts'] = Contact::all();
+        
+        return view('admin.contact',$data);
     }
 }

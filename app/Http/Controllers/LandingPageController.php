@@ -107,6 +107,14 @@ class LandingPageController extends Controller
             return view('services',$data);
     }
 
+    public function event_search(Request $request){
+        $keyword = $request->input('keyword');
+        // return $keyword;
+        $data['event'] = Event::where('name', 'like', '%' . $keyword . '%')->get();
+
+        return view('event',$data);
+    }
+
     public function booking($service, $price){
         $data['service'] = $service;
         $data['price'] = $price;

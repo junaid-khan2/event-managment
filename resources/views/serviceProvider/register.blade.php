@@ -32,7 +32,7 @@
                                     </div>
                                     @endif
                                     <div class="card-body">
-                                        <form method="post" action="{{route('serviceprovider.register')}}">
+                                        <form method="post" action="{{route('serviceprovider.register')}}" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputEmail" type="text" name="name" placeholder="John Do" />
@@ -45,6 +45,12 @@
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputPassword" type="password" name="password" placeholder="Password" />
                                                 <label for="inputPassword">Password</label>
+                                            </div>
+                                            <label for="proof_document">Document Of Proof</label>
+                                            <div class="form-floating mb-3">
+                                                
+                                                <input class="form-control" id="proof_document" type="file" name="proof_document" />
+                                               
                                             </div>
                                             <div class="form-check mb-3">
                                                 <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />

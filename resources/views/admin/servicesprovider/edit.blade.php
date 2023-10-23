@@ -29,8 +29,12 @@
                         </select>
                     </div>
                     <hr>
+                    <label for="">Proof Document</label>
+                    <div class="image">
+                        <th><img  src="{{asset('uploads/proof_document/'.$provider->proof_document)}}" alt="logo"></th>
+                    </div>
                 <fieldset>
-                    <legend>Sochal Media</legend>
+                    <legend>Social media</legend>
                     <div class="form-group my-2">
                         <label for="exampleInputEmail1">whatsapp</label>
                         <input type="text" value="{{$provider->whatsapp}}" name="whatsapp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="whatsapp">
@@ -62,6 +66,8 @@
                         <input type="file" value="{{$provider->image}}" name="image" class="form-control-file" id="exampleFormControlFile1">
                     
                     </div>
+
+                  
                 
 
                     <button type="submit" class="btn btn-primary">Submit</button>

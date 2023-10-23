@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('image')->nullable();
             $table->boolean('status')->default(0);
+            $table->string('proof_document')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();

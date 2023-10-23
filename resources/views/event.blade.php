@@ -67,7 +67,49 @@
 
 
 
+ <!-- event-search-section - start
+    ================================================== -->
+    <section id="event-search-section" class="event-search-section clearfix" style="background-image: url({{asset('assets/images/special-offer-bg.png')}});">
+        <div class="container">
+            <div class="row">
 
+                <!-- section-title - start -->
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="section-title">
+                        <small class="sub-title">Find best event on Webify</small>
+                        <h2 class="big-title">Event <strong>Search</strong></h2>
+                    </div>
+                </div>
+                <!-- section-title - end -->
+
+                <!-- search-form - start -->
+                <div class="col-lg-8 col-md-12 col-sm-12">
+                    <div class="search-form form-wrapper">
+                        <form action="{{route('event.search')}}" method="GET">
+
+                            <ul>
+                                <li>
+                                    <span class="title">Event keyword</span>
+                                    <div class="form-item">
+                                        <input value="{{ request('keyword') }}" name="keyword" type="search" placeholder="Event name ">
+                                    </div>
+                                </li>
+                               
+                                <li>
+                                    <button type="submit" class="submit-btn">search event now</button>
+                                </li>
+                            </ul>
+                            
+                        </form>
+                    </div>
+                </div>
+                <!-- search-form - end -->
+                
+            </div>
+        </div>
+    </section>
+    <!-- event-search-section - end
+    ================================================== -->
 
 
 

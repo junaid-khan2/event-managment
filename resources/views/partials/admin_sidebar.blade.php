@@ -40,6 +40,7 @@
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{route('admin.provider.unverfived')}}">unverified</a>
                         <a class="nav-link" href="{{route('admin.provider.all')}}">All Service Provicer</a>
+                        <a class="nav-link" href="{{route('admin.contact')}}">Contacts</a>
                     </nav>
                 </div>
 

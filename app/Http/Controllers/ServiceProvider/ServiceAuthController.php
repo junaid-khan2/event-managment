@@ -18,6 +18,7 @@ class ServiceAuthController extends Controller
             'name'=>'required',
             'email' => 'required|email|unique:service_providers',
             'password' => 'required',
+            'proof_document' => 'required|mimes:jpg,jpeg,png,pdf,docx|max:2048',
         ];
 
         // Create a validator instance
@@ -29,11 +30,19 @@ class ServiceAuthController extends Controller
                 ->withErrors($validator)
                 ->withInput(); // Optionally, to repopulate the form with the old input
         }
+        if($request->has('proof_document')){
+            $fileName = time().'.'.$request->proof_document->extension();
 
+            // Public Folder
+            $request->proof_document->move(public_path('uploads/proof_document'), $fileName);
+        }else{
+            $fileName = '';
+        }
         ServiceProvider::create([
             'name'=>$request->name,
             'email'=>$request->email,
-            'password'=>Hash::make($request->password)
+            'password'=>Hash::make($request->password),
+            'proof_document'=>$fileName
         ]);
 
     
