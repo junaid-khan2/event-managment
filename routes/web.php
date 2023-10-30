@@ -39,6 +39,14 @@ Route::get('/booking/make/{service}/{price}', 'App\Http\Controllers\LandingpageC
 Route::post('booking' , 'App\Http\Controllers\LandingpageController@booking_form')->name('booking');
 
 
+// ajax searach
+
+
+Route::post('/event/list', 'App\Http\Controllers\LandingpageController@ajax_event_search')->name('event.search.ajax');
+
+Route::post('/plain/search','App\Http\Controllers\LandingpageController@plain_search')->name('plain.search');
+Route::post('conform/service/plain','App\Http\Controllers\LandingpageController@conform_service')->name('conform.service.plain');
+
 
 Route::group(['middleware' => ['auth:web']], function() {
     // Route::get('/users', [UserController::class, 'users']);

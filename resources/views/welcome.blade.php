@@ -4,6 +4,12 @@
 Home
 @endsection
 
+@push('css')
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css">
+
+@endpush
+
 @section('content')
 
 
@@ -474,70 +480,6 @@ Home
 
 
 
-  <!-- slide-section - start
-  ================================================== -->
-  {{-- <section id="slide-section" class="slide-section clearfix">
-    <div id="main-carousel1" class="main-carousel1 owl-carousel owl-theme">
-
-      <div class="item" style="background-image: url({{asset('assets/images/slider/slider-bg1.jpg')}});">
-        <div class="overlay-black">
-          <div class="container">
-            <div class="slider-item-content">
-
-              <span class="medium-text">one stop</span>
-              <h1 class="big-text">Event Planner</h1>
-              <small class="small-text">every event sould be perfect</small>
-
-              <div class="link-groups">
-                <a href="{{route('about')}}" class="about-btn custom-btn">about us</a>
-                <a href="#!" class="start-btn">get started!</a>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item" style="background-image: url({{asset('assets/images/slider/slider-bg2.jpg')}});">
-        <div class="overlay-black">
-          <div class="container">
-            <div class="slider-item-content">
-
-              <span class="medium-text">one stop</span>
-              <h1 class="big-text">Event Planner</h1>
-              <small class="small-text">every event sould be perfect</small>
-
-              <div class="link-groups">
-                <a href="{{route('about')}}" class="about-btn custom-btn">about us</a>
-                <a href="#!" class="start-btn">get started!</a>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item" style="background-image: url({{asset('assets/images/slider/slider-bg3.jpg')}});">
-        <div class="overlay-black">
-          <div class="container">
-            <div class="slider-item-content">
-
-              <span class="medium-text">one stop</span>
-              <h1 class="big-text">Event Planner</h1>
-              <small class="small-text">every event sould be perfect</small>
-
-              <div class="link-groups">
-                <a href="{{route('about')}}" class="about-btn custom-btn">about us</a>
-                <a href="#!" class="start-btn">get started!</a>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section> --}}
-  <!-- slide-section - end
-  ================================================== -->
 
   <section id="slider-section" class="slide-section" clearfix>
     <div id="main-carousel1" class="main-carousel1 owl-carousel owl-theme">
@@ -622,6 +564,37 @@ Home
   </section>
   <!-- upcomming-event-section - end
   ================================================== -->
+
+
+  <section class="sec-ptb-100 clearfix">
+    <div class="container border border-danger">
+      <form method="POST" action="{{route('plain.search')}}">
+        @csrf
+        <div class="form-group">
+          <label for="" >Select Event</label>
+          <select onchange="changeEvent(this)" class="form-control">
+            <option selected disabled>Select Event</option>
+            @foreach($event as $item)
+            <option value="{{$item->id}}"> {{$item->name}} </option>
+            @endforeach
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="autocomplete-input">Search Services</label>
+          <input type="search" class="form-control d-inline-block" id="autocomplete-input"  placeholder="Search Evnet">
+          <button class="btn btn-outline-success d-inline-block" type="submit">Search</button>
+        </div>
+
+        <div class="row" id="add_service">
+          
+        </div>
+        
+        <div class="text-center">
+          <button class="btn btn-primary " type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </section>
 
 
 
@@ -743,40 +716,6 @@ Home
     </div>
   </section>
   <!-- about-section - end
-  ================================================== -->
-
-
-
-
-  <!-- special-offer-section - start
-  ================================================== -->
-  {{-- <section id="special-offer-section" class="special-offer-section clearfix" style="background-image: url(assets/images/special-offer-bg.png);">
-    <div class="container">
-      <div class="row">
-
-        <!-- special-offer-content - start -->
-        <div class="col-lg-9 col-md-12 col-sm-12">
-          <div class="special-offer-content">
-            <h2><strong>30%</strong> Off in June~July for <span>Birthday Events</span></h2>
-            <p class="m-0">
-              Contact us now and we will make your event unique & unforgettable
-            </p>
-          </div>
-        </div>
-        <!-- special-offer-content - end -->
-
-        <!-- event-makeing-btn - start -->
-        <div class="col-lg-3 col-md-12 col-sm-12">
-          <div class="event-makeing-btn">
-            <a href="#!">make an event now</a>
-          </div>
-        </div>
-        <!-- event-makeing-btn - end -->
-
-      </div>
-    </div>
-  </section> --}}
-  <!-- special-offer-section - end
   ================================================== -->
 
 
@@ -994,287 +933,6 @@ Home
   </section>
   <!-- event-gallery-section - end
   ================================================== -->
-
-
-  <!-- speaker-section - start
-  ================================================== -->
-  {{-- <section id="speaker-section" class="speaker-section clearfix">
-    <div class="jarallax" style="background-image: url(assets/images/speaker/Black-White-Dubai-Wallpaper.jpg);">
-      <div class="overlay-white">
-        <div class="container">
-
-          <!-- speaker-carousel - start -->
-          <div class="speaker-carousel">
-            <div class="slider-for">
-
-              <div class="item">
-                <div class="row">
-
-                  <!-- speaker-image - start -->
-                  <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div class="speaker-image image-wrapper text-center">
-                      <img src="{{asset('assets/images/speaker/speakes1.png')}}" alt="Image_not_found">
-                      <span class="speaker-name"><strong>Jenni</strong> Berthas</span>
-                    </div>
-                  </div>
-                  <!-- speaker-image - end -->
-
-                  <!-- speaker-content - start -->
-                  <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div class="speaker-content">
-
-                      <!-- section-title - start -->
-                      <div class="section-title text-left mb-50">
-                        <span class="line-style"></span>
-                        <small class="sub-title">Webify Events staffs</small>
-                        <h2 class="big-title">Professional <strong>Speakers</strong></h2>
-                      </div>
-                      <!-- section-title - end -->
-
-                      <div class="speaker-info">
-                        <div class="speaker-title mb-30">
-                          <span class="speaker-name"><strong>Jenni</strong> Berthas</span>
-                          <span class="work-experienc yellow-color"><strong>15 Years</strong> experienced</span>
-                        </div>
-                        <p class="black-color mb-30">
-                          Lorem ipsum dollor site amet the best  consectuer adipiscing elites sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam...
-                        </p>
-                        <div class="speaker-social-network ul-li">
-                          <h3 class="title title-medium mb-15">
-                            <strong>Social</strong> Network
-                          </h3>
-                          <ul>
-                            <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-twitch"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-google-plus-g"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                  <!-- speaker-content - end -->
-
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="row">
-
-                  <!-- speaker-image - start -->
-                  <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div class="speaker-image image-wrapper text-center">
-                      <img src="assets/images/speaker/speakes1.png" alt="Image_not_found">
-                      <span class="speaker-name"><strong>Jonathan</strong> Doe</span>
-                    </div>
-                  </div>
-                  <!-- speaker-image - end -->
-
-                  <!-- speaker-content - start -->
-                  <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div class="speaker-content">
-
-                      <!-- section-title - start -->
-                      <div class="section-title text-left mb-50">
-                        <span class="line-style"></span>
-                        <small class="sub-title">Webify Events staffs</small>
-                        <h2 class="big-title">Professional <strong>Speakers</strong></h2>
-                      </div>
-                      <!-- section-title - end -->
-
-                      <div class="speaker-info">
-                        <div class="speaker-title mb-30">
-                          <span class="speaker-name"><strong>Jonathan</strong> Doe</span>
-                          <span class="work-experienc yellow-color"><strong>15 Years</strong> experienced</span>
-                        </div>
-                        <p class="black-color mb-30">
-                          Lorem ipsum dollor site amet the best  consectuer adipiscing elites sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam...
-                        </p>
-                        <div class="speaker-social-network ul-li">
-                          <h3 class="title title-medium mb-15">
-                            <strong>Social</strong> Network
-                          </h3>
-                          <ul>
-                            <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-twitch"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-google-plus-g"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                  <!-- speaker-content - end -->
-
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="row">
-
-                  <!-- speaker-image - start -->
-                  <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div class="speaker-image image-wrapper text-center">
-                      <img src="assets/images/speaker/speakes1.png" alt="Image_not_found">
-                      <span class="speaker-name"><strong>Denies</strong> Suarez</span>
-                    </div>
-                  </div>
-                  <!-- speaker-image - end -->
-
-                  <!-- speaker-content - start -->
-                  <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div class="speaker-content">
-
-                      <!-- section-title - start -->
-                      <div class="section-title text-left mb-50">
-                        <span class="line-style"></span>
-                        <small class="sub-title">Webify Events staffs</small>
-                        <h2 class="big-title">Professional <strong>Speakers</strong></h2>
-                      </div>
-                      <!-- section-title - end -->
-
-                      <div class="speaker-info">
-                        <div class="speaker-title mb-30">
-                          <span class="speaker-name"><strong>Denies</strong> Suarez</span>
-                          <span class="work-experienc yellow-color"><strong>15 Years</strong> experienced</span>
-                        </div>
-                        <p class="black-color mb-30">
-                          Lorem ipsum dollor site amet the best  consectuer adipiscing elites sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam...
-                        </p>
-                        <div class="speaker-social-network ul-li">
-                          <h3 class="title title-medium mb-15">
-                            <strong>Social</strong> Network
-                          </h3>
-                          <ul>
-                            <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-twitch"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-google-plus-g"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                  <!-- speaker-content - end -->
-
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="row">
-
-                  <!-- speaker-image - start -->
-                  <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div class="speaker-image image-wrapper text-center">
-                      <img src="assets/images/speaker/speakes1.png" alt="Image_not_found">
-                      <span class="speaker-name"><strong>Jonathan</strong> Doe</span>
-                    </div>
-                  </div>
-                  <!-- speaker-image - end -->
-
-                  <!-- speaker-content - start -->
-                  <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div class="speaker-content">
-
-                      <!-- section-title - start -->
-                      <div class="section-title text-left mb-50">
-                        <span class="line-style"></span>
-                        <small class="sub-title">Webify Events staffs</small>
-                        <h2 class="big-title">Professional <strong>Speakers</strong></h2>
-                      </div>
-                      <!-- section-title - end -->
-
-                      <div class="speaker-info">
-                        <div class="speaker-title mb-30">
-                          <span class="speaker-name"><strong>Jonathan</strong> Doe</span>
-                          <span class="work-experienc yellow-color"><strong>15 Years</strong> experienced</span>
-                        </div>
-                        <p class="black-color mb-30">
-                          Lorem ipsum dollor site amet the best  consectuer adipiscing elites sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam...
-                        </p>
-                        <div class="speaker-social-network ul-li">
-                          <h3 class="title title-medium mb-15">
-                            <strong>Social</strong> Network
-                          </h3>
-                          <ul>
-                            <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-twitch"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-google-plus-g"></i></a></li>
-                            <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                  <!-- speaker-content - end -->
-
-                </div>
-              </div>
-
-            </div>
-
-            <div class="slider-nav">
-              <div class="item">
-                <div class="item-content">
-                  <span class="speaker-thumbnail">
-                    <img src="assets/images/speaker/speakes-thumbnail.png" alt="Image_not_found">
-                  </span>
-                  <h3 class="speaker-name">Jenni Berthas</h3>
-                  <span class="sub-title">Webify Events Speaker</span>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="item-content">
-                  <span class="speaker-thumbnail">
-                    <img src="assets/images/speaker/speakes-thumbnail.png" alt="Image_not_found">
-                  </span>
-                  <h3 class="speaker-name">Jonathan Doe</h3>
-                  <span class="sub-title">Webify Events Speaker</span>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="item-content">
-                  <span class="speaker-thumbnail">
-                    <img src="assets/images/speaker/speakes-thumbnail.png" alt="Image_not_found">
-                  </span>
-                  <h3 class="speaker-name">Denies Suarez</h3>
-                  <span class="sub-title">Webify Events Speaker</span>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="item-content">
-                  <span class="speaker-thumbnail">
-                    <img src="assets/images/speaker/speakes-thumbnail.png" alt="Image_not_found">
-                  </span>
-                  <h3 class="speaker-name">Jonathan Doe</h3>
-                  <span class="sub-title">Webify Events Speaker</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <!-- speaker-carousel - end -->
-
-        </div>
-      </div>
-    </div>
-  </section> --}}
-  <!-- speaker-section - end
-  ================================================== -->
-
-
-
 
 
   <!-- advertisement-section - start
@@ -1567,3 +1225,98 @@ Home
 
 
 @endsection
+
+@push("script")
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+
+<script>
+  item = [];
+
+  function changeEvent(e){
+    var id = e.value;
+
+    $.ajax({
+      
+            url: "{{url('/event/list')}}",
+            method: 'POST',
+            data: {
+               
+              "_token": "{{ csrf_token() }}",
+              "id": id
+            },
+            dataType: 'JSON',
+          
+            success:function(response)
+            {
+              while(item.length > 0) {
+                  item.pop();
+              }
+
+              response.forEach(val => {
+                console.log(val);
+                var item_data = {
+                  label: val.name,
+                  value: val.id
+                }
+                item.push(item_data);
+                console.log(item);
+              });
+              
+            },
+            error: function(response) {
+              debugger
+              console.log("Error  = "  +response);
+            }
+        });
+
+       
+  }
+$("#autocomplete-input").autocomplete({
+  source: item,
+
+});
+$("#autocomplete-input").on("autocompleteselect", function(event, ui) {
+  var selectedValue = ui.item.value;
+  var nameofservice = ui.item.label;
+  var idofservice = ui.item.value;
+  // Do something with the selected value
+  $("#add_service").append('  <div class="col-md-12 "><div class="card m-2"><div class="card-body">'+nameofservice+'</div><div class="card-footer"> <div class="form-group"> <label for="priceRange">Price Range</label><input type="text" class="price-range" data-id="'+idofservice+'" /> <input type="hidden" id="'+idofservice+'" name="servicename[]" value="'+idofservice+'"> <input type="hidden" name="serviceminprice[]" id="'+idofservice+'-min" value="0"><input name="servicemaxprice[]" type="hidden" id="'+idofservice+'-max" value="500">  </div> </div>      </div>    </div>');
+  console.log(ui.item);
+  addRange();
+});
+
+function addRange(){
+  $(".price-range").each(function () {
+      var customId = $(this).data("id");
+      var minPrice = 0;
+      var maxPrice = 50000;
+      var initialMinPrice = $("#"+customId+"-min").val();
+      var initialMaxPrice = $("#"+customId+"-max").val();
+
+      var $priceRange = $(this).ionRangeSlider({
+        type: "double",
+        grid: true,
+        min: minPrice,
+        max: maxPrice,
+        from: initialMinPrice,
+        to: initialMaxPrice,
+        step: 1000,
+        prefix: "Rs",
+        onFinish: function (data) {
+          $("#"+customId+"-min").val(data.from);
+          $("#"+customId+"-max").val(data.to);
+        
+        },
+      });
+    });
+}
+addRange();
+
+
+
+</script>
+
+
+@endpush

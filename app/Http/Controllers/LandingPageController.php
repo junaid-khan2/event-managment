@@ -7,6 +7,9 @@ use App\Models\Event;
 use App\Models\Service;
 use App\Models\Contact;
 use App\Models\Booking;
+use App\Models\Price;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BookService;
 
 class LandingPageController extends Controller
 {
@@ -51,35 +54,10 @@ class LandingPageController extends Controller
 
     public function service_search(Request $request){
         $keyword = $request->input('keyword');
-    $eventName = $request->input('event_name');
-    $minPrice = $request->input('mix_price');
-    $maxPrice = $request->input('max_price');
+        $eventName = $request->input('event_name');
+        $minPrice = $request->input('mix_price');
+        $maxPrice = $request->input('max_price');
 
-    // $services = Service::query()
-    //     ->when($keyword, function ($query) use ($keyword) {
-    //         $query->where(function ($query) use ($keyword) {
-    //             $query->where('name', 'like', '%' . $keyword . '%')
-    //                 ->orWhereHas('location', function ($query) use ($keyword) {
-    //                     $query->where('location', 'like', '%' . $keyword . '%');
-    //                 });
-    //         });
-    //     })
-    //     ->when($eventName, function ($query) use ($eventName) {
-    //         $query->whereHas('event', function ($query) use ($eventName) {
-    //             $query->where('name', 'like', '%' . $eventName . '%');
-    //         });
-    //     })
-    //     ->when($minPrice, function ($query) use ($minPrice) {
-    //         $query->whereHas('price', function ($query) use ($minPrice) {
-    //             $query->where('value', '>=', $minPrice);
-    //         });
-    //     })
-    //     ->when($maxPrice, function ($query) use ($maxPrice) {
-    //         $query->whereHas('price', function ($query) use ($maxPrice) {
-    //             $query->where('value', '<=', $maxPrice);
-    //         });
-    //     })
-    //     ->get();
             $data['service'] = Service::with(['event', 'price'])
             ->when($keyword, function ($query) use ($keyword) {
                 $query->where('name', 'like', '%' . $keyword . '%')
@@ -107,12 +85,122 @@ class LandingPageController extends Controller
             return view('services',$data);
     }
 
+    public function ajax_event_search(Request $request){
+        $id = $request->input('id');
+        // return $keyword;
+        $data = Service::where('event_id',$id)->get();
+        return response()->json($data);
+
+
+        
+    }
+
     public function event_search(Request $request){
         $keyword = $request->input('keyword');
         // return $keyword;
         $data['event'] = Event::where('name', 'like', '%' . $keyword . '%')->get();
 
         return view('event',$data);
+    }
+    public function plain_search(Request $request){
+         // Retrieve your data from the request or the database
+            
+            $filteredServices = [];
+            $services = [];
+
+            // Loop through your data and apply your filtering criteria
+            for ($i = 0; $i < count($request['servicename']); $i++) {
+            
+                $serviceName = $request['servicename'][$i];
+                $minPrice = $request['serviceminprice'][$i];
+                $maxPrice = $request['servicemaxprice'][$i];
+
+                // Customize your filter conditions here
+                if ($serviceName) {
+                    $filteredServices[] = [
+                        'servicename' => $serviceName,
+                        'serviceminprice' => $minPrice,
+                        'servicemaxprice' => $maxPrice,
+                    ];
+                    
+                    // $services[] = Service::whereId($serviceName)
+                    // ->with('price')
+                    //     ->whereHas('price', function ($query) use ($minPrice, $maxPrice) {
+                    //     $query->where('price', '>=', $minPrice)
+                    //           ->where('price', '<=', $maxPrice);
+                    // })->get();
+                    $services_data =  Service::whereId($serviceName)
+                    ->with(['price' => function($query) use ($minPrice, $maxPrice) {
+                        $query->where('price', '>=', $minPrice)
+                              ->where('price', '<=', $maxPrice)
+                              ->orderBy('price', 'desc')
+                        ->limit(1);
+                    }])
+                    ->first();
+                    if(!empty($services_data->price)){
+                        $services[] = $services_data;
+                    }else{
+                        $services[] = [];
+                    }
+                }
+            }
+
+            $data['services'] = $services;
+
+            // You can return the filtered data or pass it to your view
+           
+            return view('plain',$data);
+            return response()->json($services);
+        // return $request;
+    }
+    public function conform_service(Request $request){
+
+        $priceIds = json_decode($request->price_ids, true);
+       $plain = Price::whereIn('id',$priceIds)->with('service.user')->get();
+        $name = $request->name;
+        $email = $request->email;
+        $phone = $request->phone;
+        $date = $request->date;
+        $description = $request->description;
+       foreach($plain as $plain_b){
+        $data = Booking::create([
+            'service_id'=>$plain_b->service->id,
+            'price_id'=>$plain_b->id,
+            'name'=>$name,
+            'email'=>$email,
+            'phone'=>$phone,
+            'date'=>$date,
+            'description'=>$description,
+        ]);
+
+        $mailData = [
+            'serviceprovider_name' => $plain_b->service->user->name,
+            'service_name' => $plain_b->service->name,
+            'price_plan' => $plain_b->name,
+            'name'=>$name,
+            'email'=>$email,
+            'phone'=>$phone,
+            'date'=>$date,
+        ];
+
+      
+        
+        Mail::to('jk904465@example.com')->send(new BookService($mailData));
+        // echo $plain_b->service->id."Service id \n <br>";
+        // echo $plain_b->id." Price Id  \n <br>";
+        // echo $name." name   \n <br>";
+        // echo $email." email  \n <br>";
+        // echo $phone." phone  \n <br>";
+        // echo $date." date  \n <br>";
+        // echo $description." description  \n <br>";
+       }
+       if($data){
+        return redirect()->route('index')->with(['msg'=>'Booking Susscssfluy']);
+        }else{
+            return redirect()->back()->withErrors('Some Error in Booking')->withInput();
+        }
+    
+        
     }
 
     public function booking($service, $price){
