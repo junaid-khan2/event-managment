@@ -70,7 +70,7 @@
 
     <!-- event-search-section - start
     ================================================== -->
-    <section id="event-search-section" class="event-search-section clearfix" style="background-image: url({{asset('assets/images/special-offer-bg.png')}});">
+    {{-- <section id="event-search-section" class="event-search-section clearfix" style="background-image: url({{asset('assets/images/special-offer-bg.png')}});">
         <div class="container">
             <div class="row">
 
@@ -129,7 +129,7 @@
                 
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- event-search-section - end
     ================================================== -->
 
@@ -195,7 +195,7 @@
                 <!-- - start -->
                 <div class="col-lg-9 col-md-12 col-sm-12">
 
-                    <div class="search-result-form">
+                    {{-- <div class="search-result-form">
                         <form action="#!">
                             <ul>
 
@@ -227,7 +227,7 @@
                             <li><a data-toggle="tab" href="#list-style"><i class="fas fa-th-list"></i></a></li>
                             <li><a class="active" data-toggle="tab" href="#grid-style"><i class="fas fa-th"></i></a></li>
                         </ul>
-                    </div>
+                    </div> --}}
 
                     <div class="tab-content">
                         <div id="list-style" class="tab-pane fade">

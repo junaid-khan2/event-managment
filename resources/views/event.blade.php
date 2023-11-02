@@ -69,7 +69,7 @@
 
  <!-- event-search-section - start
     ================================================== -->
-    <section id="event-search-section" class="event-search-section clearfix" style="background-image: url({{asset('assets/images/special-offer-bg.png')}});">
+    {{-- <section id="event-search-section" class="event-search-section clearfix" style="background-image: url({{asset('assets/images/special-offer-bg.png')}});">
         <div class="container">
             <div class="row">
 
@@ -107,7 +107,7 @@
                 
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- event-search-section - end
     ================================================== -->
 

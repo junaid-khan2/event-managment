@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ServiceProvider;
+use App\Models\Service;
 use App\Models\Booking;
 use App\Models\Contact;
 use Carbon\Carbon;
@@ -12,7 +13,15 @@ use Carbon\Carbon;
 class DashboardController extends Controller
 {
     public function index(){
-       return view('admin.dashboard');
+        $data['bookingsCount'] = Booking::where('created_at', '>=', Carbon::today())->count();
+        $data['serviceCount'] = Service::count();
+        $data['serviceProviderCount'] = ServiceProvider::count();
+
+         $data['todaybookings'] = Booking::with('service')
+         ->with('price')
+          ->get();
+        // return $data;
+       return view('admin.dashboard',$data);
     }
     public function provider_all(){
         $data['providers'] =  ServiceProvider::get();
