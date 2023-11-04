@@ -1,5 +1,28 @@
 @extends('layout.app')
 @push('css')
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css">
+<style>
+    /* Change the color of the pointer (thumb) */
+.irs-slider {
+  background: #FF5733 !important; /* Set your desired color here */
+}
+
+/* Change the color of the slider's borders, if needed */
+.irs-slider.single {
+  border-color: #FF5733 !important; /* Set your desired color here */
+}
+/* Change the color of the pointer (thumb) */
+.irs-single {
+  background: #FF5733 !important; /* Set your desired color here */
+}
+
+.irs-to , .irs-from, .irs-min , .irs-max, .irs-bar, .irs-handle  {
+    background: #FF5733 !important; 
+}
+
+
+</style>
 @endpush
 @section('title')
     Services
@@ -110,6 +133,52 @@
     </section> --}}
     <!-- event-search-section - end
     ================================================== -->
+
+
+    <!--
+        form search
+        ===================================
+    -->
+
+    
+  <section class="sec-ptb-100 clearfix">
+    <div class="container ">
+        <div class="card">
+            <div class="card-body">
+            
+                <form method="POST" action="{{route('plain.search')}}">
+                  @csrf
+                  <div class="form-group">
+                    <label for="" >Select Event</label>
+                    <select onchange="changeEvent(this)" class="form-control">
+                      <option selected disabled>Select Event</option>
+                      @foreach($event as $item)
+                      <option value="{{$item->id}}"> {{$item->name}} </option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="autocomplete-input">Search Services</label>
+                    <input type="search" class="form-control d-inline-block" id="autocomplete-input"  placeholder="Search Evnet">
+                    
+                  </div>
+          
+                  <div class="row" id="add_service">
+                    
+                  </div>
+                  
+                  <div class="text-center">
+                    <button class="btn custom-btn " type="submit">Submit</button>
+                  </div>
+                </form>
+              </div>
+        </div>
+    </div>
+  </section> 
+    <!--
+        ===============================
+        end form search
+    -->
 
 
 
@@ -300,6 +369,98 @@
 
 
 @endsection
-@push('script')
-		
+@push("script")
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+
+<script>
+  item = [];
+
+  function changeEvent(e){
+    var id = e.value;
+
+    $.ajax({
+      
+            url: "{{url('/event/list')}}",
+            method: 'POST',
+            data: {
+               
+              "_token": "{{ csrf_token() }}",
+              "id": id
+            },
+            dataType: 'JSON',
+          
+            success:function(response)
+            {
+              while(item.length > 0) {
+                  item.pop();
+              }
+
+              response.forEach(val => {
+                console.log(val);
+                var item_data = {
+                  label: val.name,
+                  value: val.id
+                }
+                item.push(item_data);
+                console.log(item);
+              });
+              
+            },
+            error: function(response) {
+              debugger
+              console.log("Error  = "  +response);
+            }
+        });
+
+       
+  }
+$("#autocomplete-input").autocomplete({
+  source: item,
+
+});
+$("#autocomplete-input").on("autocompleteselect", function(event, ui) {
+  var selectedValue = ui.item.value;
+  var nameofservice = ui.item.label;
+  var idofservice = ui.item.value;
+  // Do something with the selected value
+  $("#add_service").append('  <div class="col-md-12 "><div class="card m-2"><div class="card-body">'+nameofservice+'</div><div class="card-footer"> <div class="form-group"> <label for="priceRange">Price Range</label><input type="text" class="price-range" data-id="'+idofservice+'" /> <input type="hidden" id="'+idofservice+'" name="servicename[]" value="'+idofservice+'"> <input type="hidden" name="serviceminprice[]" id="'+idofservice+'-min" value="0"><input name="servicemaxprice[]" type="hidden" id="'+idofservice+'-max" value="500">  </div> </div>      </div>    </div>');
+  console.log(ui.item);
+  addRange();
+});
+
+function addRange(){
+  $(".price-range").each(function () {
+      var customId = $(this).data("id");
+      var minPrice = 0;
+      var maxPrice = 50000;
+      var initialMinPrice = $("#"+customId+"-min").val();
+      var initialMaxPrice = $("#"+customId+"-max").val();
+
+      var $priceRange = $(this).ionRangeSlider({
+        skin: "sharp",
+        type: "double",
+        grid: true,
+        min: minPrice,
+        max: maxPrice,
+        from: initialMinPrice,
+        to: initialMaxPrice,
+        step: 1000,
+        prefix: "Rs",
+        onFinish: function (data) {
+          $("#"+customId+"-min").val(data.from);
+          $("#"+customId+"-max").val(data.to);
+        
+        },
+      });
+    });
+}
+addRange();
+
+
+
+</script>
+
+
 @endpush
