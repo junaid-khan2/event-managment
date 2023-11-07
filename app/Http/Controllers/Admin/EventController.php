@@ -115,7 +115,7 @@ class EventController extends Controller
             'name'=>$request->name,
             'image'=>$imageName,
             'short_description'=>$request->short_description,
-            'content'=>$request->description
+            // 'content'=>$request->description
 
         ]);
         if($data){
