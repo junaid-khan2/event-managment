@@ -125,7 +125,7 @@
 
   <!-- google map - start
   ================================================== -->
-  <section id="map-section" class="map-section clearfix">
+  {{-- <section id="map-section" class="map-section clearfix">
     <div class="address-wrapper">
 
       <!-- address-info-topbar - start -->
@@ -186,7 +186,7 @@
     <div id="google-map">
       <div id="googleMaps" class="google-map-container"></div>
     </div>
-  </section>
+  </section> --}}
   <!-- google map - end
   ================================================== -->
 

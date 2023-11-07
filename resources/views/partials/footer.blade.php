@@ -61,21 +61,21 @@
 						<!-- basic-info - end -->
 
 						<!-- about-wrapper - start -->
-						<div class="col-lg-3 col-md-6 col-sm-12">
+						{{-- <div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="about-wrapper">
 
 								<!-- site-logo-wrapper - start -->
 								<div class="site-logo-wrapper mb-30">
 									<a href="index-1.html" class="logo">
-										{{-- <img src="assets/images/1.site-logo.png" alt="logo_not_found"> --}}
+										<img src="assets/images/1.site-logo.png" alt="logo_not_found">
 										<h3 style="color:#ffbe30"><strong>Webify Events</strong></h3>
 
 									</a>
 								</div>
 								<!-- site-logo-wrapper - end -->
 
-								<p class="mb-30">
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna.
+								<p class="mb-30 " style="color: #ffbe30">
+									Webify Event management is the application of Event management to the creation and development of small and/or large-scale personal or corporate events such as festivals, conferences, ceremonies, weddings, formal parties, concerts, or conventions.
 								</p>
 
 								<!-- social-links - start -->
@@ -102,11 +102,11 @@
 								<!-- social-links - end -->
 								
 							</div>
-						</div>
+						</div> --}}
 						<!-- about-wrapper - end -->
 
 						<!-- usefullinks-wrapper - start -->
-						<div class="col-lg-3 col-md-6 col-sm-12">
+						{{-- <div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="usefullinks-wrapper ul-li-block">
 								<h3 class="footer-item-title">
 									useful <strong>links</strong>
@@ -121,11 +121,11 @@
 								</ul>
 								
 							</div>
-						</div>
+						</div> --}}
 						<!-- usefullinks-wrapper - end -->
 
 						<!-- usefullinks-wrapper - start -->
-						<div class="col-lg-3 col-md-6 col-sm-12">
+						{{-- <div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="usefullinks-wrapper ul-li-block">
 								<h3 class="footer-item-title">
 									useful <strong>links</strong>
@@ -140,11 +140,11 @@
 								</ul>
 								
 							</div>
-						</div>
+						</div> --}}
 						<!-- usefullinks-wrapper - end -->
 
 						<!-- instagram-wrapper - start -->
-						<div class="col-lg-3 col-md-6 col-sm-12">
+						{{-- <div class="col-lg-3 col-md-6 col-sm-12">
 							<div class="instagram-wrapper ul-li">
 								<h3 class="footer-item-title">
 									Webify <strong>instagram</strong>
@@ -171,7 +171,7 @@
 									Follow Our Instagram <a href="#!">#webify</a>
 								</h4>
 							</div>
-						</div>
+						</div> --}}
 						<!-- instagram-wrapper - end -->
 
 					</div>
@@ -195,9 +195,8 @@
 						<div class="col-lg-5 col-md-12 col-sm-12">
 							<div class="footer-menu">
 								<ul>
-									<li><a href="contact.html">Contact us</a></li>
-									<li><a href="about.html">About us</a></li>
-									<li><a href="#!">Site map</a></li>
+									<li><a href="{{route('contact')}}">Contact us</a></li>
+									<li><a href="{{route('about')}}">About us</a></li>\
 									<li><a href="#!">Privacy policy</a></li>
 								</ul>
 							</div>

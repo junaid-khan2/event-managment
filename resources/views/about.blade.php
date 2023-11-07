@@ -390,7 +390,7 @@ About
 
 		<!-- testimonial5-section - start
 		================================================== -->
-		<section id="testimonial5-section" class="testimonial5-section sec-ptb-100 clearfix">
+		{{-- <section id="testimonial5-section" class="testimonial5-section sec-ptb-100 clearfix">
 			<div class="container">
 
 				<!-- section-title - start -->
@@ -459,7 +459,7 @@ About
 				<!-- testimonial5-carousel - end -->
 
 			</div>
-		</section>
+		</section> --}}
 		<!-- testimonial5-section - end
 		================================================== -->
 
@@ -469,7 +469,7 @@ About
 
 		<!-- absolute-sponsor-section - start
 		================================================== -->
-		<div id="absolute-sponsor-section" class="absolute-sponsor-section sr-fade1 clearfix">
+		{{-- <div id="absolute-sponsor-section" class="absolute-sponsor-section sr-fade1 clearfix">
 			<ul>
 
 				<li>
@@ -494,7 +494,7 @@ About
 				</li>
 				
 			</ul>
-		</div>
+		</div> --}}
 		<!-- absolute-sponsor-section - end
 		================================================== -->
 
@@ -504,7 +504,7 @@ About
 
 		<!-- speaker-section - start
 		================================================== -->
-		<section id="speaker-section" class="speaker-section clearfix" style="background-image: url(assets/images/speaker/Black-White-Dubai-Wallpaper.jpg);">
+		{{-- <section id="speaker-section" class="speaker-section clearfix" style="background-image: url(assets/images/speaker/Black-White-Dubai-Wallpaper.jpg);">
 			<div class="overlay-white">
 				<div class="container">
 
@@ -773,7 +773,7 @@ About
 
 				</div>
 			</div>
-		</section>
+		</section> --}}
 		<!-- speaker-section - end
 		================================================== -->
 
@@ -783,7 +783,7 @@ About
 
 		<!-- special-offer-section - start
 		================================================== -->
-		<section id="special-offer-section" class="special-offer-section clearfix" style="background-image: url(assets/images/special-offer-bg.png);">
+		{{-- <section id="special-offer-section" class="special-offer-section clearfix" style="background-image: url(assets/images/special-offer-bg.png);">
 			<div class="container">
 				<div class="row">
 
@@ -808,7 +808,7 @@ About
 
 				</div>
 			</div>
-		</section>
+		</section> --}}
 		<!-- special-offer-section - end
 		================================================== -->
 
@@ -818,7 +818,7 @@ About
 
 		  <!-- google map - start
 			================================================== -->
-			<section id="map-section" class="map-section clearfix">
+			{{-- <section id="map-section" class="map-section clearfix">
 				<div class="address-wrapper">
 
 				<!-- address-info-topbar - start -->
@@ -878,7 +878,7 @@ About
 				<div id="google-map">
 				<div id="googleMaps" class="google-map-container"></div>
 				</div>
-			</section>
+			</section> --}}
 			<!-- google map - end
 			================================================== -->
 

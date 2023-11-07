@@ -26,10 +26,10 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-group my-3">
+                    {{-- <div class="form-group my-3">
                         <label for="editor">Description</label>
                         <textarea name="description" id="editor"></textarea>
-                    </div>
+                    </div> --}}
                     <div class="form-group my-2">
                         <label for="exampleFormControlFile1">Image</label>
                         <input type="file" value="{{old('image')}}" name="image" class="form-control-file" id="exampleFormControlFile1">
