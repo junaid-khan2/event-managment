@@ -12,6 +12,7 @@
                 <form action="{{route('serviceprovider.service.update', [$data->id])}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+                    <input type="hidden" name="oldimage" value="{{$data->image}}">
                     <div class="form-group my-2">
                         <label for="exampleInputEmail1">Service Name</label>
                         <input type="text" value="{{$data->name}}" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Event Name">
@@ -20,19 +21,33 @@
                         @enderror
                         
                     </div>
-                    <div class="form-group my-2">
+                    <div class="row my-2">
                         <label for="exampleInputEmail1">Select Event</label>
                       
-                        <select class="form-select" name="event" aria-label="Default select example">
-                            
-                            @foreach($event as $event)
-                            @if($data->event_id == $event->id)
-                            <option selected value="{{$event->id}}">{{$event->name}}</option>
-                            @else
-                            <option value="{{$event->id}}">{{$event->name}}</option>
-                            @endif
-                            @endforeach
-                        </select>
+                        
+
+                        @foreach ($event as $event)
+                        @if($data->events->contains('id', $event->id))
+                        <div class="col-md-3 col-lg-3 col-sm-2">
+                            <div class="form-check">
+                                <input class="form-check-input" checked name="event[]" type="checkbox" value="{{$event->id}}" id="flexCheckChecked" >
+                                <label class="form-check-label" >
+                                  {{$event->name}}
+                                </label>
+                              </div>
+                        </div>
+                        @else
+                        <div class="col-md-3 col-lg-3 col-sm-2">
+                            <div class="form-check">
+                                <input class="form-check-input" name="event[]" type="checkbox" value="{{$event->id}}" id="flexCheckChecked" >
+                                <label class="form-check-label" >
+                                  {{$event->name}}
+                                </label>
+                              </div>
+                        </div>
+                        @endif
+                       
+                        @endforeach
                         @error('event')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

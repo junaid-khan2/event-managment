@@ -12,6 +12,7 @@
                 <form action="{{route('admin.event.update',[$event->id])}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+                    <input type="hidden" name="oldimage" value="{{$event->image}}">
                     <div class="form-group my-2">
                         <label for="exampleInputEmail1">Event Name</label>
                         <input type="text" value="{{$event->name}}" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Event Name">

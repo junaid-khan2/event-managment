@@ -107,7 +107,7 @@ class EventController extends Controller
             // Public Folder
             $request->image->move(public_path('uploads/images'), $imageName);
         }else{
-            $imageName = '';
+            $imageName = $request->oldimage;
         }
 
 

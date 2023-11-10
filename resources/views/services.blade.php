@@ -143,91 +143,10 @@
         <div class="container">
             <div class="row">
 
-                <!-- sidebar-section - start -->
-                <div class="col-lg-3 col-md-12 col-sm-12">
-                    <div class="sidebar-section">
-
-                        <!-- Add to Calendar - start -->
-                        <div title="Add to Calendar" class="addeventatc">
-                            Add to Calendar
-                            <span class="start">06/18/2015 09:00 AM</span>
-                            <span class="end">06/18/2015 11:00 AM</span>
-                            <span class="timezone">Europe/Paris</span>
-                            <span class="title">Summary of the event</span>
-                            <span class="description">Description of the event</span>
-                            <span class="location">Location of the event</span>
-                            <span class="organizer">Organizer</span>
-                            <span class="organizer_email">Organizer e-mail</span>
-                            <span class="all_day_event">false</span>
-                            <span class="date_format">MM/DD/YYYY</span>
-                        </div>
-                        <!-- Add to Calendar - end -->
-
-                        <!-- map-wrapper - start -->
-                        <div class="map-wrapper mb-30">
-
-                            <h2 class="title-small default-color mb-30">Google Map Search</h2>
-
-                            <div id="google-map">
-                                <div id="googleMaps" class="google-map-container"></div>
-                            </div>
-
-                        </div>
-                        <!-- map-wrapper - end -->
-
-                        {{-- <!-- spacial-event-wrapper - start -->
-                        <div class="spacial-event-wrapper text-center" style="background-image: url(assets/images/spacial-event-bg.jpg);">
-                            <div class="overlay-black">
-                                <p class="sub-title white-color mb-30">26 DECEMBER 2018</p>
-                                <h2 class="title-large white-color mb-30">
-                                    AMSTERDAM
-                                    <strong class="yellow-color">PHP CONFERENCE</strong>
-                                </h2>
-                                <a href="#!" class="custom-btn">booking ticket</a>
-                            </div>
-                        </div>
-                        <!-- spacial-event-wrapper - end --> --}}
-                        
-                    </div>
-                </div>
-                <!-- sidebar-section - end -->
-
                 <!-- - start -->
-                <div class="col-lg-9 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
 
-                    {{-- <div class="search-result-form">
-                        <form action="#!">
-                            <ul>
-
-                                <li>
-                                    <span class="result-text">5 Search results from 20 events</span>
-                                </li>
-                                <li>
-                                    <label for="year-select">Years:</label>
-                                    <select id="year-select">
-                                        <option selected="">2018</option>
-                                        <option value="1">2019</option>
-                                        <option value="2">2020</option>
-                                        <option value="3">2021</option>
-                                    </select>
-                                </li>
-                                <li>
-                                    <label for="munth-select">Months:</label>
-                                    <select id="munth-select">
-                                        <option selected="">June</option>
-                                        <option value="1">July</option>
-                                        <option value="2">August</option>
-                                    </select>
-                                </li>
-
-                            </ul>
-                        </form>
-
-                        <ul class="nav event-layout-btngroup">
-                            <li><a data-toggle="tab" href="#list-style"><i class="fas fa-th-list"></i></a></li>
-                            <li><a class="active" data-toggle="tab" href="#grid-style"><i class="fas fa-th"></i></a></li>
-                        </ul>
-                    </div> --}}
+                   
 
                     <div class="tab-content">
                         <div id="list-style" class="tab-pane fade">
@@ -288,7 +207,7 @@
 
                                 @forelse ($service as $item)
                                     <!-- event-grid-item - start -->
-                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="event-grid-item">
                                         <!-- event-image - start -->
                                         <div class="event-image">

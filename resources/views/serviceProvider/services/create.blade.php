@@ -19,15 +19,25 @@
                         @enderror
                         
                     </div>
-                    <div class="form-group my-2">
+                    <div class="row my-2">
                         <label for="exampleInputEmail1">Select Event</label>
                       
-                        <select class="form-select" name="event" aria-label="Default select example">
+                        {{-- <select class="form-select" name="event" aria-label="Default select example">
                             <option disabled selected>select Event for which you provide servise</option>
                             @foreach($event as $event)
                             <option value="{{$event->id}}">{{$event->name}}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
+                        @foreach ($event as $event)
+                        <div class="col-md-3 col-lg-3 col-sm-2">
+                            <div class="form-check">
+                                <input class="form-check-input" name="event[]" type="checkbox" value="{{$event->id}}" id="flexCheckChecked" >
+                                <label class="form-check-label" >
+                                  {{$event->name}}
+                                </label>
+                              </div>
+                        </div>
+                        @endforeach
                         @error('event')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Service;
 use App\Models\Price;
+use App\Models\MultipleService;
 use Illuminate\Http\Request;
 use Auth, Validator;
 
@@ -40,6 +41,8 @@ class ServiceMangementController extends Controller
     public function store(Request $request)
     {
         //
+       
+        
         // return $request;
         $user_id =  Auth::user()->id;
         $rules = [
@@ -74,7 +77,6 @@ class ServiceMangementController extends Controller
         
         $data = Service::create([
             'user_id'=>$user_id,
-            'event_id'=>$request->event,
             'name'=>$request->name,
             'image'=>$imageName,
             'location'=>$request->location,
@@ -82,6 +84,19 @@ class ServiceMangementController extends Controller
             'content'=>$request->description,
 
         ]);
+
+        foreach($request->event as $event){
+            MultipleService::create([
+            'user_id'=>$user_id,
+            'service_id'=>$data->id,
+            'event_id'=>$event
+        ]);
+        }
+
+       
+
+
+        
 
         if($request->basicfeature){
             Price::create([
@@ -138,8 +153,9 @@ class ServiceMangementController extends Controller
     public function edit(string $id)
     {
         //
-        $data['data'] = Service::whereId($id)->with('price')->firstOrFail();
+        $data['data'] = Service::whereId($id)->with('price')->with('events')->firstOrFail();
         $data['event'] = Event::all();
+        // return $data;
         return view('serviceProvider.services.edit',$data);
     }
 
@@ -147,22 +163,20 @@ class ServiceMangementController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
-        
+    {      
+        $user_id =  Auth::user()->id;
+
         if($request->has('image')){
             $imageName = time().'.'.$request->image->extension();
 
             // Public Folder
             $request->image->move(public_path('uploads/services/images'), $imageName);
         }else{
-            $imageName = '';
+            $imageName = $request->oldimage;
         }
 
         
-        $data = Service::whereId($id)->update([
-            
-            'event_id'=>$request->event,
+        $data = Service::whereId($id)->update([            
             'name'=>$request->name,
             'image'=>$imageName,
             'location'=>$request->location,
@@ -170,6 +184,38 @@ class ServiceMangementController extends Controller
             'content'=>$request->description,
 
         ]);
+
+            // Check if event is selected
+        
+           // Create or update entry in multiple_service table
+            foreach($request->event as $event){
+                   
+
+                MultipleService::updateOrCreate(
+                    ['service_id' => $id, 'event_id' => $event],
+                    [
+                        'user_id'=>$user_id,
+                        'service_id'=>$id,
+                        'event_id'=>$event
+                        
+                    ] // Add other fields as needed
+                );
+            }
+
+            //Remove entry from multiple_service table if event is not selected
+            $requestEvent = $request->event;
+
+            $contanEvent = MultipleService::where('service_id', $id)->pluck('event_id');
+            
+            // Find events in the database but not in the request
+            $eventsToDelete = $contanEvent->diff($requestEvent);
+    
+            $delete = MultipleService::whereIn('event_id',$eventsToDelete)->where('service_id', $id)->delete();
+           
+        
+            
+        
+
 
         if($request->basicfeatureid){
             Price::whereId($request->basicfeatureid)->update([

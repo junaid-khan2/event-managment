@@ -20,7 +20,7 @@ class LandingPageController extends Controller
     {
         //
         $data['event'] = Event::all();
-        $data['services'] = Service::with('event')->get();
+        $data['services'] = Service::with('events')->get();
         // return $data;
         return view('welcome',$data);
     }
@@ -35,7 +35,7 @@ class LandingPageController extends Controller
 
     public function services_show ($id){
         // return $id;
-        $data['service'] = Service::whereId($id)->with('price')->with('user')->with('event')->first();
+        $data['service'] = Service::whereId($id)->with('price')->with('user')->with('events')->first();
         $data['event'] = Event::all();
         
         return view('single_service',$data);
@@ -87,9 +87,12 @@ class LandingPageController extends Controller
 
     public function ajax_event_search(Request $request){
         $id = $request->input('id');
-        // return $keyword;
-        $data = Service::where('event_id',$id)->get();
+        $data = Service::whereHas('multipleServices', function ($query) use ($id) {
+            $query->where('event_id', $id);
+        })->get();
+        
         return response()->json($data);
+        
 
 
         
@@ -102,57 +105,95 @@ class LandingPageController extends Controller
 
         return view('event',$data);
     }
-    public function plain_search(Request $request){
-         // Retrieve your data from the request or the database
+    // public function plain_search(Request $request){
+    //      // Retrieve your data from the request or the database
             
-            $filteredServices = [];
-            $services = [];
+    //         $filteredServices = [];
+    //         $services = [];
 
-            // Loop through your data and apply your filtering criteria
-            for ($i = 0; $i < count($request['servicename']); $i++) {
+    //         // Loop through your data and apply your filtering criteria
+    //         for ($i = 0; $i < count($request['servicename']); $i++) {
             
-                $serviceName = $request['servicename'][$i];
-                $minPrice = $request['serviceminprice'][$i];
-                $maxPrice = $request['servicemaxprice'][$i];
+    //             $serviceName = $request['servicename'][$i];
+    //             $minPrice = $request['serviceminprice'][$i];
+    //             $maxPrice = $request['servicemaxprice'][$i];
 
-                // Customize your filter conditions here
-                if ($serviceName) {
-                    $filteredServices[] = [
-                        'servicename' => $serviceName,
-                        'serviceminprice' => $minPrice,
-                        'servicemaxprice' => $maxPrice,
-                    ];
+    //             // Customize your filter conditions here
+    //             if ($serviceName) {
+    //                 // $filteredServices[] = [
+    //                 //     'servicename' => $serviceName,
+    //                 //     'serviceminprice' => $minPrice,
+    //                 //     'servicemaxprice' => $maxPrice,
+    //                 // ];
                     
-                    // $services[] = Service::whereId($serviceName)
-                    // ->with('price')
-                    //     ->whereHas('price', function ($query) use ($minPrice, $maxPrice) {
-                    //     $query->where('price', '>=', $minPrice)
-                    //           ->where('price', '<=', $maxPrice);
-                    // })->get();
-                    $services_data =  Service::whereId($serviceName)
-                    ->with(['price' => function($query) use ($minPrice, $maxPrice) {
-                        $query->where('price', '>=', $minPrice)
-                              ->where('price', '<=', $maxPrice)
-                              ->orderBy('price', 'desc')
-                        ->limit(1);
-                    }])
-                    ->first();
-                    if(!empty($services_data->price)){
-                        $services[] = $services_data;
-                    }else{
-                        $services[] = [];
-                    }
-                }
-            }
+    //                 // $services[] = Service::whereId($serviceName)
+    //                 // ->with('price')
+    //                 //     ->whereHas('price', function ($query) use ($minPrice, $maxPrice) {
+    //                 //     $query->where('price', '>=', $minPrice)
+    //                 //           ->where('price', '<=', $maxPrice);
+    //                 // })->get();
+    //                 $services_data =  Service::whereId($serviceName)
+    //                 ->with(['price' => function($query) use ($minPrice, $maxPrice) {
+    //                     $query->whereBetween('price', [$minPrice, $maxPrice])
+    //                           ->orderBy('price', 'desc')
+    //                     ->limit(1);
+    //                 }])
+    //                 ->first();
+    //                 if(!empty($services_data->price)){
+    //                     $services[] = $services_data;
+    //                 }else{
+    //                     $services[] = [];
+    //                 }
+    //             }
+    //         }
 
-            $data['services'] = $services;
+    //         $data['services'] = $services;
 
-            // You can return the filtered data or pass it to your view
+    //         // You can return the filtered data or pass it to your view
            
-            return view('plain',$data);
-            return response()->json($services);
-        // return $request;
+    //         // return view('plain',$data);
+    //         return response()->json($services);
+    //     // return $request;
+    // }
+    public function plain_search(Request $request) {
+    $filteredServices = [];
+    $services = [];
+
+    for ($i = 0; $i < count($request['servicename']); $i++) {
+        $serviceName = $request['servicename'][$i];
+        $minPrice = $request['serviceminprice'][$i];
+        $maxPrice = $request['servicemaxprice'][$i];
+
+        if ($serviceName) {
+            $services_data = Service::whereId($serviceName)
+                ->with(['price' => function ($query) use ($minPrice, $maxPrice) {
+                    $query->whereBetween('price', array(intval($minPrice) , intval($maxPrice)))
+                        ->orderBy('price', 'desc')
+                        ->first();
+                }])
+                ->first();
+
+            if (!empty($services_data->price)) {
+                $services[] = $services_data;
+            }
+        }
+        // if($serviceName){
+        //     $services = Price::whereBetween('price', array(intval(200) , intval(300)))
+        //     ->orderBy('price', 'desc')
+        //     ->first();
+        //     dd($services);
+
+        else{
+            echo "NOT FOUND";
+        }
     }
+
+    $data['services'] = $services;
+    return view('plain',$data);
+
+    return response()->json($services);
+}
+
     public function conform_service(Request $request){
 
         $priceIds = json_decode($request->price_ids, true);

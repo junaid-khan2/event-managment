@@ -11,17 +11,27 @@ use App\Models\ServiceProvider;
 class Service extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id','event_id','name','image','location','status','avalibality_for_home','short_description','content'];
+    protected $fillable = ['user_id','name','image','location','status','avalibality_for_home','short_description','content'];
+    public function price()
+    {
+        return $this->hasMany(Price::class, 'service_id', 'id');
+    }
 
-    public function price(){
-        return $this->hasMany(Price::class, 'service_id','id');
+    public function multipleServices()
+    {
+        return $this->hasMany(MultipleService::class);
     }
-    public function event(){
-        return $this->belongsTo(Event::class,'event_id','id');
+
+    public function events()
+    {
+        return $this->hasManyThrough(Event::class, MultipleService::class, 'service_id', 'id', 'id', 'event_id');
     }
-    public function user(){
-        return $this->belongsTo(ServiceProvider::class,'user_id','id');
+
+    public function user()
+    {
+        return $this->belongsTo(ServiceProvider::class, 'user_id', 'id');
     }
+
     public function bookings()
     {
         return $this->hasMany(Booking::class);
