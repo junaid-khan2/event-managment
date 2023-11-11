@@ -4,7 +4,7 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">Booking</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="{{route('admin')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('serviceprovider.dashboard')}}">Dashboard</a></li>
             <li class="breadcrumb-item active">Booking</li>
         </ol>
       

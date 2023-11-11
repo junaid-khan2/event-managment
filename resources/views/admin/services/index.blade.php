@@ -36,7 +36,7 @@
                         <tr>
                             <th>{{$event->name}}</th>
                             <th><img height="100" width="100" src="{{asset('uploads/services/images/'.$event->image)}}" alt="logo"></th>
-                            <th>{{$event->description}}</th>
+                            <th>{{$event->short_description}}</th>
                          
                         </tr>
                         @endforeach

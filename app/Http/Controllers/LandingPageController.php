@@ -158,6 +158,12 @@ class LandingPageController extends Controller
     $filteredServices = [];
     $services = [];
 
+    if(!$request['servicename']){
+        return redirect()->back()->withErrors(['msg' => 'Select Services']);
+    }
+
+    // return $request;
+
     for ($i = 0; $i < count($request['servicename']); $i++) {
         $serviceName = $request['servicename'][$i];
         $minPrice = $request['serviceminprice'][$i];

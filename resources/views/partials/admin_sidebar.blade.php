@@ -3,7 +3,7 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route('admin.dashboard')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
@@ -26,7 +26,7 @@
                 </a>
                 <div class="collapse" id="collapseEvent" aria-labelledby="headingfour" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{route('admin.event.create')}}">ADD Event</a>
+                        <a class="nav-link" href="{{route('admin.event.create')}}">Add Event</a>
                         <a class="nav-link" href="{{route('admin.event.index')}}">All Event</a>
                     </nav>
                 </div>
@@ -44,7 +44,7 @@
                     </nav>
                 </div>
 
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsebooking" aria-expanded="false" aria-controls="collapsebooking">
+                {{-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsebooking" aria-expanded="false" aria-controls="collapsebooking">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                     Booking
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -54,7 +54,7 @@
                         <a class="nav-link" href="{{route('admin.booking.today')}}">ToDay</a>
                         <a class="nav-link" href="{{route('admin.booking.all')}}">All Booking</a>
                     </nav>
-                </div>
+                </div> --}}
             
             </div>
         </div>

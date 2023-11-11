@@ -146,6 +146,14 @@
         <h1 class="text-center h1 " style="color: #FF5733; font-weight: bold">Make Event Plain</h1>
         <div class="card">
             <div class="card-body">
+                @if($errors->any())
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Message !</strong> {{$errors->first()}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
             
                 <form method="POST" action="{{route('plain.search')}}">
                   @csrf
