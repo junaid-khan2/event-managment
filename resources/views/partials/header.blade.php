@@ -69,12 +69,13 @@
 												<li @if (Route::currentRouteName() == 'index') class="active" @endif>
 												  <a href="{{route('index')}}">Home</a>
 												</li>
+                        <li @if (Route::currentRouteName() == 'event') class="active" @endif>
+												  <a href="{{route('event')}}">Event</a>
+												</li>
 												<li @if (Route::currentRouteName() == 'services') class="active" @endif>
 												  <a href="{{route('services')}}">Services</a>
 												</li>
-												<li @if (Route::currentRouteName() == 'event') class="active" @endif>
-												  <a href="{{route('event')}}">Event</a>
-												</li>
+												
 												<li  @if (Route::currentRouteName() == 'about') class="active" @endif>
 												  <a href="{{route('about')}}">About Us</a>
 												</li>

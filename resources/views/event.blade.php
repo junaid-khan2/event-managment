@@ -56,7 +56,7 @@
     <!-- breadcrumb-section - start
     ================================================== -->
     <section id="breadcrumb-section" class="breadcrumb-section clearfix">
-        <div class="jarallax" style="background-image: url({{asset('assets/images/breadcrumb/0.breadcrumb-bg.jpg')}});">
+        <div class="jarallax" style="background-image: url({{asset('assets/images/pic.jpg')}});">
             <div class="overlay-black">
                 <div class="container">
                     <div class="row justify-content-center">
@@ -143,6 +143,7 @@
     
   <section class="sec-ptb-100 clearfix">
     <div class="container ">
+        <h1 class="text-center h1 " style="color: #FF5733; font-weight: bold">Make Event Plain</h1>
         <div class="card">
             <div class="card-body">
             
@@ -156,11 +157,6 @@
                       <option value="{{$item->id}}"> {{$item->name}} </option>
                       @endforeach
                     </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="autocomplete-input">Search Services</label>
-                    <input type="search" class="form-control d-inline-block" id="autocomplete-input"  placeholder="Search Evnet">
-                    
                   </div>
           
                   <div class="row" id="add_service">
@@ -328,9 +324,12 @@
 
 <script>
   item = [];
+  
 
   function changeEvent(e){
     var id = e.value;
+
+    
 
     $.ajax({
       
@@ -345,19 +344,15 @@
           
             success:function(response)
             {
-              while(item.length > 0) {
-                  item.pop();
-              }
+                row = '';
+                $("#add_service").html('');
+              
+                response.forEach(val => {
+                    row += '<div class="col-md-4 mb-4"> <div class="card"> <div class="card-header"> <div class="row"> <div class="col"> <h5 class="card-title">'+val.name+' </h5> </div> <div class="col"> <input type="checkbox" name="servicename[]" value="'+val.id+'" id=""> <label for="">Select Service</label> </div> </div> </div> <div class="card-body"> <div class="form-group"> <label for="priceRange">Price Range:</label> <input type="text" class="price-range" data-id="'+val.id+'" /><input type="hidden" name="serviceminprice[]" id="'+val.id+'-min" value="0"><input name="servicemaxprice[]" type="hidden" id="'+val.id+'-max" value="500">  </div> </div> </div> </div>';
+                });
+                $("#add_service").html(row);
+                addRange();
 
-              response.forEach(val => {
-                console.log(val);
-                var item_data = {
-                  label: val.name,
-                  value: val.id
-                }
-                item.push(item_data);
-                console.log(item);
-              });
               
             },
             error: function(response) {
@@ -368,19 +363,7 @@
 
        
   }
-$("#autocomplete-input").autocomplete({
-  source: item,
 
-});
-$("#autocomplete-input").on("autocompleteselect", function(event, ui) {
-  var selectedValue = ui.item.value;
-  var nameofservice = ui.item.label;
-  var idofservice = ui.item.value;
-  // Do something with the selected value
-  $("#add_service").append('  <div class="col-md-12 "><div class="card m-2"><div class="card-body">'+nameofservice+'</div><div class="card-footer"> <div class="form-group"> <label for="priceRange">Price Range</label><input type="text" class="price-range" data-id="'+idofservice+'" /> <input type="hidden" id="'+idofservice+'" name="servicename[]" value="'+idofservice+'"> <input type="hidden" name="serviceminprice[]" id="'+idofservice+'-min" value="0"><input name="servicemaxprice[]" type="hidden" id="'+idofservice+'-max" value="500">  </div> </div>      </div>    </div>');
-  console.log(ui.item);
-  addRange();
-});
 
 function addRange(){
   $(".price-range").each(function () {

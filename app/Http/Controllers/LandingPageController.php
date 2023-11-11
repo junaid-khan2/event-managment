@@ -92,8 +92,6 @@ class LandingPageController extends Controller
         })->get();
         
         return response()->json($data);
-        
-
 
         
     }
@@ -156,6 +154,7 @@ class LandingPageController extends Controller
     //     // return $request;
     // }
     public function plain_search(Request $request) {
+        
     $filteredServices = [];
     $services = [];
 

@@ -26,7 +26,7 @@ About
 		<!-- breadcrumb-section - start
 		================================================== -->
 		<section id="breadcrumb-section" class="breadcrumb-section clearfix">
-			<div class="jarallax" style="background-image: url(assets/images/breadcrumb/0.breadcrumb-bg.jpg);">
+			<div class="jarallax" style="background-image: url(assets/images/pic.jpg);">
 				<div class="overlay-black">
 					<div class="container">
 						<div class="row justify-content-center">

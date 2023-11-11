@@ -37,7 +37,7 @@ Home
     <!-- breadcrumb-section - start
     ================================================== -->
     <section id="breadcrumb-section" class="breadcrumb-section clearfix">
-        <div class="jarallax" style="background-image: url({{asset('assets/images/hero.jpg')}});">
+        <div class="jarallax" style="background-image: url({{asset('assets/images/pic.jpg')}});">
             <div class="overlay-black">
                 <div class="container">
                     <div class="row justify-content-center py-5">
@@ -317,7 +317,7 @@ Home
               <ul class="nav">
                 @foreach($event as $item)
                 <li>
-                  <a data-toggle="tab" href="#{{$item->id}}">
+                  <a data-toggle="tab" class="{{$loop->first ? 'active show' : ''}}" href="#{{$item->id}}">
                     <strong><i></i>{{$item->name}}</strong>
                   </a>
                 </li>
@@ -334,7 +334,7 @@ Home
       <div class="tab-content">
 
         @foreach ($event as $item1)
-        <div id="{{$item1->id}}" class="tab-pane fade">
+        <div id="{{$item1->id}}" class="tab-pane fade {{$loop->first ? 'active show' : ''}}">
           <div class="row">
 
            @foreach ($services as $item)
