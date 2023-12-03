@@ -44,6 +44,21 @@
                         
                     </div>
                     <div class="form-group my-2">
+                        <label for="exampleInputEmail1">Select Category</label>
+                      
+                        <select class="form-select" name="category" aria-label="Default select example">
+                            <option disabled selected>Select Category for which you provide servise</option>
+                            @foreach($category as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
+                        </select>
+                       
+                        @error('category')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        
+                    </div>
+                    <div class="form-group my-2">
                         <label for="exampleInputEmail1">Location</label>
                         <input type="text" value="{{old('location')}}" name="location" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Address">
                         @error('location')

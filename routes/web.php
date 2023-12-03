@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\ServiceProvider\ServiceAuthController;
 use App\Http\Controllers\ServiceProvider\ServiceDashboardController;
 use App\Http\Controllers\ServiceProvider\ServiceMangementController;
@@ -34,6 +35,7 @@ Route::get('/event', 'App\Http\Controllers\LandingpageController@event')->name('
 Route::get('event/search', 'App\Http\Controllers\LandingpageController@event_search')->name('event.search');
 Route::post('contact', 'App\Http\Controllers\LandingpageController@contact_form')->name('contact');
 Route::get('/services', 'App\Http\Controllers\LandingpageController@services')->name('services');
+Route::get('/services/{category}','App\Http\Controllers\LandingpageController@services_category')->name('services.category');
 Route::get('service/search', 'App\Http\Controllers\LandingpageController@service_search')->name('service.search');
 Route::get('/booking/make/{service}/{price}', 'App\Http\Controllers\LandingpageController@booking')->name('booking.make');
 Route::post('booking' , 'App\Http\Controllers\LandingpageController@booking_form')->name('booking');
@@ -102,4 +104,5 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware' => ['auth:admin']], 
 
     Route::resource('event', EventController::class);
     Route::resource('service', ServiceController::class);
+    Route::resource('category', CategoryController::class);
 });

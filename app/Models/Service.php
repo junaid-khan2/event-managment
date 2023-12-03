@@ -11,7 +11,7 @@ use App\Models\ServiceProvider;
 class Service extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id','name','image','location','status','avalibality_for_home','short_description','content'];
+    protected $fillable = ['user_id','category_id','name','image','location','status','avalibality_for_home','short_description','content'];
     public function price()
     {
         return $this->hasMany(Price::class, 'service_id', 'id');

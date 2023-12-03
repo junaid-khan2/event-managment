@@ -1,68 +1,34 @@
 @extends('layout.admin')
 @section('content')
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Event Managment</h1>
+        <h1 class="mt-4">Category Managment</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Dashboard</a></li>
-            <li class="breadcrumb-item active">Create Event</li>
+            <li class="breadcrumb-item active">Create Category</li>
         </ol>
       
         <div class="card mb-4">
             <div class="card-body">
-                <form action="{{route('admin.event.update',[$event->id])}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('admin.category.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
-                    <input type="hidden" name="oldimage" value="{{$event->image}}">
                     <div class="form-group my-2">
-                        <label for="exampleInputEmail1">Event Name</label>
-                        <input type="text" value="{{$event->name}}" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Event Name">
+                        <label for="exampleInputEmail1">Category Name</label>
+                        <input type="text" value="{{old('name')}}" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Category Name">
                         @error('name')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        
-                    </div>
-                    <div class="row my-2">
-                        <label for="exampleInputEmail1">Select Category</label>
-                      
-                        
-
-                        @foreach ($category as $category)
-                        @if($event->category->contains('id', $category->id))
-                        <div class="col-md-3 col-lg-3 col-sm-2">
-                            <div class="form-check">
-                                <input class="form-check-input" checked name="category[]" type="checkbox" value="{{$category->id}}" id="flexCheckChecked" >
-                                <label class="form-check-label" >
-                                  {{$category->name}}
-                                </label>
-                              </div>
-                        </div>
-                        @else
-                        <div class="col-md-3 col-lg-3 col-sm-2">
-                            <div class="form-check">
-                                <input class="form-check-input" name="category[]" type="checkbox" value="{{$category->id}}" id="flexCheckChecked" >
-                                <label class="form-check-label" >
-                                  {{$category->name}}
-                                </label>
-                              </div>
-                        </div>
-                        @endif
-                       
-                        @endforeach
-                        @error('category')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         
                     </div>
                     <div class="form-group my-2">
                         <label for="">Short Description</label>
-                        <textarea class="form-control" name="short_description">{{$event->short_description}}</textarea>
-                        @error('short_description')
+                        <textarea class="form-control" name="description">{{old('description')}}</textarea>
+                        @error('description')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     {{-- <div class="form-group my-3">
                         <label for="editor">Description</label>
-                        <textarea name="description" id="editor">{{$event->contect}}</textarea>
+                        <textarea name="description" id="editor"></textarea>
                     </div> --}}
                     <div class="form-group my-2">
                         <label for="exampleFormControlFile1">Image</label>
@@ -72,7 +38,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </form>
             </div>
         </div>

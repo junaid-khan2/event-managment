@@ -11,6 +11,11 @@ class Event extends Model
 
     protected $fillable = ['name','image','short_description','content'];
 
+    public function category()
+    {
+        return $this->hasManyThrough(Category::class, EventCategory::class, 'event_id', 'id', 'id',  'category_id');
+    }
+
     public function multipleServices()
     {
         return $this->hasMany(MultipleService::class);

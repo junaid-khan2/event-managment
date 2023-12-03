@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Service;
 use App\Models\Price;
+use App\Models\Category;
 use App\Models\MultipleService;
 use Illuminate\Http\Request;
 use Auth, Validator;
@@ -31,6 +32,7 @@ class ServiceMangementController extends Controller
     {
         //
         $data['event'] = Event::all();
+        $data['category'] = Category::all();
         // return $data;
         return view('serviceProvider.services.create',$data);
     }
@@ -48,7 +50,8 @@ class ServiceMangementController extends Controller
         $rules = [
             'name' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'event'=>'required'
+            'event'=>'required',
+            'category'=>'required'
         ];
 
         $messages = [
@@ -58,6 +61,7 @@ class ServiceMangementController extends Controller
             'image.mimes' => 'Only JPEG, PNG, JPG, and GIF images are allowed.',
             'image.max' => 'The image size cannot exceed 2MB.',
             'event.required'=>'Event Is required',
+            'category.required'=>'Category Is required',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -77,6 +81,7 @@ class ServiceMangementController extends Controller
         
         $data = Service::create([
             'user_id'=>$user_id,
+            'category_id'=>$request->category,
             'name'=>$request->name,
             'image'=>$imageName,
             'location'=>$request->location,
@@ -155,6 +160,7 @@ class ServiceMangementController extends Controller
         //
         $data['data'] = Service::whereId($id)->with('price')->with('events')->firstOrFail();
         $data['event'] = Event::all();
+        $data['category'] = Category::all();
         // return $data;
         return view('serviceProvider.services.edit',$data);
     }
@@ -176,7 +182,8 @@ class ServiceMangementController extends Controller
         }
 
         
-        $data = Service::whereId($id)->update([            
+        $data = Service::whereId($id)->update([
+            'category_id'=>$request->category,            
             'name'=>$request->name,
             'image'=>$imageName,
             'location'=>$request->location,

@@ -8,6 +8,7 @@ use App\Models\Service;
 use App\Models\Contact;
 use App\Models\Booking;
 use App\Models\Price;
+use App\Models\Category;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookService;
 
@@ -20,6 +21,7 @@ class LandingPageController extends Controller
     {
         //
         $data['event'] = Event::all();
+        $data['category'] = Category::with('services')->get();
         $data['services'] = Service::with('events')->get();
         // return $data;
         return view('welcome',$data);
@@ -42,8 +44,16 @@ class LandingPageController extends Controller
     }
     public function services(){
         // return ['working'];
-        $data['service'] =  Service::get();
-        $data['event'] = Event::all();
+        // $data['service'] =  Service::get();
+        // $data['event'] = Event::all();
+        $data['category'] = Category::all();
+        // return $data;
+        return view('services_category',$data);
+    }
+
+    public function services_category($id){
+        $data['service'] =  Service::where('category_id',$id)->get();
+        
         return view('services',$data);
     }
 
@@ -87,7 +97,7 @@ class LandingPageController extends Controller
 
     public function ajax_event_search(Request $request){
         $id = $request->input('id');
-        $data = Service::whereHas('multipleServices', function ($query) use ($id) {
+        $data = Category::whereHas('eventcategoty', function ($query) use ($id) {
             $query->where('event_id', $id);
         })->get();
         
@@ -154,6 +164,7 @@ class LandingPageController extends Controller
     //     // return $request;
     // }
     public function plain_search(Request $request) {
+        // return $request;
         
     $filteredServices = [];
     $services = [];
@@ -170,7 +181,7 @@ class LandingPageController extends Controller
         $maxPrice = $request['servicemaxprice'][$i];
 
         if ($serviceName) {
-            $services_data = Service::whereId($serviceName)
+            $services_data = Service::where('category_id',$serviceName)
                 ->with(['price' => function ($query) use ($minPrice, $maxPrice) {
                     $query->whereBetween('price', array(intval($minPrice) , intval($maxPrice)))
                         ->orderBy('price', 'desc')

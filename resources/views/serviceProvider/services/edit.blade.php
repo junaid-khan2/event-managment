@@ -4,6 +4,7 @@
         <h1 class="mt-4">Edit Service</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="{{route('serviceprovider.dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('serviceprovider.service.index')}}">Services</a></li>
             <li class="breadcrumb-item active">Edit Service</li>
         </ol>
       
@@ -49,6 +50,26 @@
                        
                         @endforeach
                         @error('event')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        
+                    </div>
+                    <div class="form-group my-2">
+                        <label for="exampleInputEmail1">Select Category</label>
+                      
+                        <select class="form-select" name="category" aria-label="Default select example">
+                            <option disabled selected>Select Category for which you provide servise</option>
+                            @foreach($category as $category)
+                                @if($data->category_id == $category->id)
+                                    <option selected value="{{$category->id}}">{{$category->name}}</option>
+                                @else
+                                    <option  value="{{$category->id}}">{{$category->name}}</option>
+                                @endif    
+                            @endforeach
+                            
+                        </select>
+                       
+                        @error('category')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         

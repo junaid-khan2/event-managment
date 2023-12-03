@@ -315,7 +315,7 @@ Home
           <div class="col-lg-8 col-md-12 col-sm-12">
             <div class="event-tab-menu clearfix">
               <ul class="nav">
-                @foreach($event as $item)
+                @foreach($category as $item)
                 <li>
                   <a data-toggle="tab" class="{{$loop->first ? 'active show' : ''}}" href="#{{$item->id}}">
                     <strong><i></i>{{$item->name}}</strong>
@@ -333,14 +333,14 @@ Home
       <!-- tab-content - start -->
       <div class="tab-content">
 
-        @foreach ($event as $item1)
+        @foreach ($category as $item1)
         <div id="{{$item1->id}}" class="tab-pane fade {{$loop->first ? 'active show' : ''}}">
           <div class="row">
 
-           @foreach ($services as $item)
+           @foreach ($item1->services as $item)
            @if($item->events->contains('id', $item1->id))
                <!-- event-item - start -->
-               <div class="col-lg-4 col-md-12 col-sm-12">
+               <div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="event-item clearfix">
   
                   <!-- event-image - start -->
@@ -349,7 +349,7 @@ Home
                       <span class="date">26</span>
                       <small class="month">june</small>
                     </div> --}}
-                    <img src="{{asset('uploads/services/images/'.$item->image)}}" alt="Image_not_found">
+                    <img class="img-responsive" src="{{asset('uploads/services/images/'.$item->image)}}" alt="Image_not_found">
                   </div>
                   <!-- event-image - end -->
   

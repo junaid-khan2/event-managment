@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\EventCategory;
+use App\Models\Category;
+
 use Validator, Session;
 
 class EventController extends Controller
@@ -25,7 +28,8 @@ class EventController extends Controller
     public function create()
     {
         //
-        return view('admin.Event.create');
+        $data['category'] = Category::all();
+        return view('admin.Event.create',$data);
     }
 
     /**
@@ -33,8 +37,6 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        
-       
         $rules = [
             'name' => 'required',
             'short_description' => 'required',
@@ -67,6 +69,14 @@ class EventController extends Controller
             'content'=>$request->description
 
         ]);
+
+        foreach($request->category as $category){
+            EventCategory::create([
+            'event_id'=>$data->id,
+            'category_id'=>$category
+            ]);
+        }
+    
         if($data){
              return redirect()->route('admin.event.index');
         }else{
@@ -87,8 +97,9 @@ class EventController extends Controller
      */
     public function edit(string $id)
     {
-        $data['event'] = Event::whereId($id)->firstOrFail();
-
+        $data['event'] = Event::whereId($id)->with('category')->firstOrFail();
+        $data['category'] = Category::all();
+        // return $data;
         return view('admin.Event.edit',$data);
 
 
@@ -118,6 +129,34 @@ class EventController extends Controller
             // 'content'=>$request->description
 
         ]);
+
+              if(isset($request->category)){
+                foreach($request->category as $category){
+                        
+
+                    EventCategory::updateOrCreate(
+                        ['event_id' => $id, 'category_id' => $category],
+                        [
+                           
+                            'event_id'=>$id,
+                            'category_id'=>$category,
+                            
+                        ] // Add other fields as needed
+                    );
+                }
+              }
+
+        
+            //Remove entry from multiple_service table if event is not selected
+            $requestcategory = $request->category;
+
+            $contancategory = EventCategory::where('event_id', $id)->pluck('category_id');
+            
+            // Find events in the database but not in the request
+            $categoryToDelete = $contancategory->diff($requestcategory);
+    
+            $delete = EventCategory::whereIn('category_id',$categoryToDelete)->where('event_id', $id)->delete();
+
         if($data){
              return redirect()->route('admin.event.index');
         }else{

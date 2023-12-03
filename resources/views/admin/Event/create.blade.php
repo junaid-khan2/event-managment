@@ -19,6 +19,30 @@
                         @enderror
                         
                     </div>
+                    <div class="row my-2">
+                        <label for="exampleInputEmail1">Select Category </label>
+                      
+                        {{-- <select class="form-select" name="event" aria-label="Default select example">
+                            <option disabled selected>select Event for which you provide servise</option>
+                            @foreach($event as $event)
+                            <option value="{{$event->id}}">{{$event->name}}</option>
+                            @endforeach
+                        </select> --}}
+                        @foreach ($category as $category)
+                        <div class="col-md-3 col-lg-3 col-sm-2">
+                            <div class="form-check">
+                                <input class="form-check-input" name="category[]" type="checkbox" value="{{$category->id}}" id="flexCheckChecked" >
+                                <label class="form-check-label" >
+                                  {{$category->name}}
+                                </label>
+                              </div>
+                        </div>
+                        @endforeach
+                        @error('event')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        
+                    </div>
                     <div class="form-group my-2">
                         <label for="">Short Description</label>
                         <textarea class="form-control" name="short_description"></textarea>
