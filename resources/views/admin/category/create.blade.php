@@ -19,13 +19,13 @@
                         @enderror
                         
                     </div>
-                    <div class="form-group my-2">
+                    {{-- <div class="form-group my-2">
                         <label for="">Short Description</label>
                         <textarea class="form-control" name="description">{{old('description')}}</textarea>
                         @error('description')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
                     {{-- <div class="form-group my-3">
                         <label for="editor">Description</label>
                         <textarea name="description" id="editor"></textarea>
