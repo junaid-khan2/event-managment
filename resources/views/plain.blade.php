@@ -120,9 +120,10 @@
                                             @endforeach
                                         </td>
                                         @else
-                                        <td>{{$item->name}}</td>
-                                        <td>{{$item->location}}</td>
-                                        <td colspan="2">Not Found in Your Price</td>
+                                        <td colspan="4">
+Unfortunately, no services are available within your specified budget range. Please adjust your budget.
+                                        </td>
+
 
 
                                         @endif
