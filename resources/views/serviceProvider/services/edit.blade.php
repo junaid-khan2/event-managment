@@ -1,4 +1,7 @@
 @extends('layout.service_provider')
+@push('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
+@endpush
 @section('content')
     <div class="container-fluid px-4">
         <h1 class="mt-4">Edit Service</h1>
@@ -101,91 +104,50 @@
                         @enderror
                     </div>
                     <hr>
-                   <h3>Pricing</h3> 
-                   <div class="row">
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>BASIC PLAN</h5>
-                                    <br>
-                                    <button type="button"  id="basicfeaturebtn" class="btn btn-success">Add</button>
-                                </div>
-                                <div class="card-body">
-                                    <div id="basiccard">
-                                        <input type="hidden" name="basicfeatureid" value="{{$data->price[0]->id}}">
-                                        @foreach (json_decode($data->price[0]->features) as $price)
-                                        <div class="form-group my-2">
-                                            <label for="exampleFormControlFile1">Feature</label>
-                                            <input type="text" value="{{$price}}"  name="basicfeature[]" class="form-control-file" id="exampleFormControlFile1">
-                                            
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="form-group my-2">
-                                        <label for="exampleFormControlFile1">Price</label>
-                                        <input type="text" value="{{$data->price[0]->price}}" name="basicprice" class="form-control-file" id="exampleFormControlFile1">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>STANDARD PLAN</h5>
-                                    <br>
-                                    <button type="button"  id="standardfeaturebtn" class="btn btn-success">Add</button>
-                                </div>
-                                <div class="card-body">
-                                    <input type="hidden" name="standardfeatureid" value="{{$data->price[1]->id}}">
-                                    <div id="standardcard">
-                                        @foreach (json_decode($data->price[1]->features) as $price)
-                                            <div class="form-group my-2">
-                                                <label for="exampleFormControlFile1">Feature</label>
-                                                <input type="text" value="{{$price}}" name="standardfeature[]" class="form-control-file" id="exampleFormControlFile1">
-                                                
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="form-group my-2">
-                                        <label for="exampleFormControlFile1">Price</label>
-                                        <input type="text" value="{{$data->price[1]->price}}"  name="standardprice" class="form-control-file" id="exampleFormControlFile1">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>ENTERPRISE PLAN</h5>
-                                    <br>
-                                    <button type="button"  id="enterprisefeaturebtn" class="btn btn-success">Add</button>
-                                </div>
-                                <div class="card-body">
-                                    <input type="hidden" name="enterprisefeatureid" value="{{$data->price[2]->id}}">
-                                    <div id="enterprisecard">
-                                        @foreach (json_decode($data->price[2]->features) as $price)
-                                            <div class="form-group my-2">
-                                                <label for="exampleFormControlFile1">Feature</label>
-                                                <input type="text" value="{{$price}}"  name="enterprisefeature[]" class="form-control-file" id="exampleFormControlFile1">
-                                                
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="form-group my-2">
-                                        <label for="exampleFormControlFile1">Price</label>
-                                        <input type="text" value="{{$data->price[2]->price}}" name="enterpriseprice" class="form-control-file" id="exampleFormControlFile1">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="my-2">
+                        <h3 class="float-start">Pricing</h3>
+                        <button type="button" id="addPlan" class="btn btn-success float-end">Add Plan</button>
                     </div>
+                    <br>
+                    <br>
                     <hr>
+                    <div class="row mt-1" id="pricePlans">
+                        <!-- Pricing plans will be added here dynamically -->
+                        @php
+                            $plainNo = 0;
+                        @endphp
+                        @foreach ($data->price as $item)
+                     
+                        <div class="col-md-4 my-1 plan" data-plan="{{ $plainNo }}">
+                            <div class="card">
+                                <div class="card-header">
+                                    <input type="text" value="{{$item->name}}" name="plan[{{ $plainNo }}][name]" class="form-control plan-name" placeholder="Plan Name">
+                                    <br>
+                                    <button type="button" class="btn btn-danger float-end remove-plan mx-1"><i class="fa-solid fa-trash"></i></button>
+                                    <button type="button" class="btn btn-success float-end add-feature mx-1">Add Feature</button>
+                                </div>
+                                <div class="card-body features" data-plan="{{ $plainNo }}">
+                                    @foreach (json_decode($item->features) as $features)
+                                    <div class="form-group my-2">
+                                        <label for="exampleFormControlFile1">Feature</label>
+                                        <input type="text" value="{{$features}}" name="plan[{{ $plainNo }}][features][]" class="form-control-file" id="exampleFormControlFile1">
+                                        <button type="button" class="btn btn-danger btn-sm float-end remove-feature"><i class="fa-solid fa-delete-left"></i></button>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <div class="card-footer">
+                                    <div class="form-group my-2">
+                                        <label for="exampleFormControlFile1">Price</label>
+                                        <input type="text" value="{{$item->price}}" name="plan[{{ $plainNo }}][price]" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @php
+                            $plainNo++
+                        @endphp
+                        @endforeach
+                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
@@ -207,16 +169,89 @@
   });
 </script>
 <script>
-    $(document).ready(function(){
-       $('#basicfeaturebtn').click(function(){
-           $('#basiccard').append('<div class="form-group my-2"><label for="exampleFormControlFile1">Feature</label> <input type="text"  name="basicfeature[]" class="form-control-file" id="exampleFormControlFile1"></div>')
-       });
-       $('#standardfeaturebtn').click(function(){
-           $('#standardcard').append('<div class="form-group my-2"><label for="exampleFormControlFile1">Feature</label> <input type="text"  name="standardfeature[]" class="form-control-file" id="exampleFormControlFile1"></div>')
-       });
-       $('#enterprisefeaturebtn').click(function(){
-           $('#enterprisecard').append('<div class="form-group my-2"><label for="exampleFormControlFile1">Feature</label> <input type="text"  name="enterprisefeature[]" class="form-control-file" id="exampleFormControlFile1"></div>')
-       });
+    $(document).ready(function() {
+        // Initial plan
+        // addPlan();
+
+        // Add plan button click event
+        $('#addPlan').click(function() {
+            addPlan();
+        });
+
+        // Function to add a new plan
+        function addPlan() {
+            var planNumber = $('.plan').length + 1;
+
+            var planHtml = `
+        <div class="col-md-4 my-1 plan" data-plan="${planNumber}">
+            <div class="card">
+                <div class="card-header">
+                    <input type="text" name="plan[${planNumber}][name]" class="form-control plan-name" placeholder="Plan Name">
+                    <br>
+                    <button type="button" class="btn btn-danger float-end remove-plan mx-1"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-success float-end add-feature mx-1">Add Feature</button>
+                </div>
+                <div class="card-body features" data-plan="${planNumber}">
+                    <div class="form-group my-2">
+                        <label for="exampleFormControlFile1">Feature</label>
+                        <input type="text" name="plan[${planNumber}][features][]" class="form-control-file" id="exampleFormControlFile1">
+                        <button type="button" class="btn btn-danger btn-sm float-end remove-feature"><i class="fa-solid fa-delete-left"></i></button>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="form-group my-2">
+                        <label for="exampleFormControlFile1">Price</label>
+                        <input type="text" name="plan[${planNumber}][price]" class="form-control-file" id="exampleFormControlFile1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+            $('#pricePlans').append(planHtml);
+
+            // Add feature button click event
+            $('.add-feature').off('click').on('click', function() {
+                addFeature($(this));
+            });
+
+            // Remove plan button click event
+            $('.remove-plan').off('click').on('click', function() {
+                removePlan($(this));
+            });
+        }
+
+        // Function to add a new feature within a plan
+        function addFeature(button) {
+            var featuresContainer = button.closest('.plan').find('.features');
+
+            var featureHtml = `
+                <div class="form-group my-2">
+                    <label for="exampleFormControlFile1">Feature</label>
+                    <input type="text" name="plan[${featuresContainer.data('plan')}][features][]" class="form-control-file" id="exampleFormControlFile1">
+                    <button type="button" class="btn btn-danger btn-sm float-end remove-feature"><i class="fa-solid fa-delete-left"></i></button>
+                </div>
+            `;
+
+            featuresContainer.append(featureHtml);
+
+            // Remove feature button click event
+            $('.remove-feature').off('click').on('click', function() {
+                removeFeature($(this));
+            });
+        }
+
+        // Function to remove a plan
+        function removePlan(button) {
+            var planContainer = button.closest('.plan');
+            planContainer.remove();
+        }
+
+        // Function to remove a feature within a plan
+        function removeFeature(button) {
+            var featureContainer = button.closest('.form-group');
+            featureContainer.remove();
+        }
     });
-   </script>
+</script>
 @endpush

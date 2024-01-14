@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\ServiceProvider\ServiceAuthController;
 use App\Http\Controllers\ServiceProvider\ServiceDashboardController;
 use App\Http\Controllers\ServiceProvider\ServiceMangementController;
+use App\Http\Controllers\LandingpageController;
 use App\Http\Middleware\CheckStatus;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,7 +25,8 @@ use Illuminate\Support\Facades\Hash;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\LandingpageController@index')->name('index');
+// Route::get('/', 'App\Http\Controllers\LandingpageController@index')->name('index');
+Route::get('/', [LandingpageController::class,'index'])->name('index');
 Route::get('/services/list', 'App\Http\Controllers\LandingpageController@services_list')->name('services.list');
 Route::get('services/view/{id?}', 'App\Http\Controllers\LandingpageController@services_show')->name('services.view');
 Route::view('about', 'about')->name('about');

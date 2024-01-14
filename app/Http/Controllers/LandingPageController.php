@@ -29,9 +29,20 @@ class LandingPageController extends Controller
 
     public function services_list(Request $request){
         $service_id =  $request->id;
-        $data['service'] =  Service::whereId($service_id)->get();
+
+        $data['service'] = Category::whereHas('events', function ($query) use ($service_id) {
+            $query->where('event_id', $service_id);
+        })->get();
+        
         $data['event'] = Event::all();
+        
+        // return $data;
+        
         return view('services',$data);
+
+        // return $categories = Category::whereHas('events', function ($query) use ($service_id) {
+        //     $query->where('id', $service_id);
+        // })->get();
        
     }
 

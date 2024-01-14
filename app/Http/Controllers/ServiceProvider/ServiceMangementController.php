@@ -98,39 +98,22 @@ class ServiceMangementController extends Controller
         ]);
         }
 
-       
 
 
-        
+            if($request->plan){
+                
+                foreach ($request->plan as $planId => $plan) {
+                         Price::create([
+                        'service_id'=>$data->id,
+                        'name'=>$plan['name'],
+                        'features'=>json_encode($plan['features']),
+                        'price'=>$plan['price'],
 
-        if($request->basicfeature){
-            Price::create([
-                'service_id'=>$data->id,
-                'name'=>'Basic Plain',
-                'features'=>json_encode($request->basicfeature),
-                'price'=>$request->basicprice,
-
-            ]);
-        }
-        if($request->standardfeature){
-            Price::create([
-                'service_id'=>$data->id,
-                'name'=>'Standard Plain',
-                'features'=>json_encode($request->standardfeature),
-                'price'=>$request->standardprice,
-
-            ]);
-        }
-        if($request->enterprisefeature){
-            Price::create([
-                'service_id'=>$data->id,
-                'name'=>'EnterPrice Plain',
-                'features'=>json_encode($request->enterprisefeature),
-                'price'=>$request->enterpriseprice,
-
-            ]);
-        }
-        
+                    ]);
+                }
+            }
+         
+           
 
         if($data){
              return redirect()->route('serviceprovider.service.index');
@@ -169,7 +152,8 @@ class ServiceMangementController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {      
+    {     
+       
         $user_id =  Auth::user()->id;
 
         if($request->has('image')){
@@ -220,36 +204,26 @@ class ServiceMangementController extends Controller
             $delete = MultipleService::whereIn('event_id',$eventsToDelete)->where('service_id', $id)->delete();
            
         
-            
-        
 
+            // Update or create Price entries
+            if ($request->plan) {
+                foreach ($request->plan as $planId => $plan) {
+                    Price::updateOrCreate(
+                        ['service_id' => $id, 'name' => $plan['name']],
+                        [
+                            'service_id' => $id,
+                            'features' => json_encode($plan['features']),
+                            'price' => $plan['price'],
+                        ]
+                    );
+                }
+            }
 
-        if($request->basicfeatureid){
-            Price::whereId($request->basicfeatureid)->update([
-                
-                'name'=>'Basic Plain',
-                'features'=>json_encode($request->basicfeature),
-                'price'=>$request->basicprice,
-
-            ]);
-        }
-        if($request->standardfeatureid){
-            Price::whereId($request->standardfeatureid)->update([
-                'name'=>'Standard Plain',
-                'features'=>json_encode($request->standardfeature),
-                'price'=>$request->standardprice,
-
-            ]);
-        }
-        if($request->enterprisefeatureid){
-            Price::whereId($request->enterprisefeatureid)->update([
-       
-                'name'=>'EnterPrice Plain',
-                'features'=>json_encode($request->enterprisefeature),
-                'price'=>$request->enterpriseprice,
-
-            ]);
-        }
+            // Remove plans that are not in the current request
+            $currentPlanNames = collect($request->plan)->pluck('name')->toArray();
+            Price::where('service_id', $id)
+                ->whereNotIn('name', $currentPlanNames)
+                ->delete();
         
 
         if($data){

@@ -36,13 +36,11 @@ class CategoryController extends Controller
         
         $rules = [
             'name' => 'required',
-            'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
 
         $messages = [
             'name.required' => 'The name field is required.',
-            'description.required' => 'The description field is required.',
             'image.required' => 'Please select an image.',
             'image.image' => 'The uploaded file is not an image.',
             'image.mimes' => 'Only JPEG, PNG, JPG, and GIF images are allowed.',

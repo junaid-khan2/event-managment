@@ -17,4 +17,16 @@ class Category extends Model
     public function eventcategoty(){
         return $this->hasMany(EventCategory::class);
     }
+
+    public function events()
+    {
+        return $this->hasManyThrough(
+            Event::class,
+            EventCategory::class,
+            'category_id',  // Foreign key on EventCategory table
+            'id',           // Local key on Category table
+            'id',           // Local key on Event table
+            'event_id'      // Foreign key on EventCategory table
+        );
+    }
 }

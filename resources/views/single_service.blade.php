@@ -3,6 +3,13 @@
 @section('title')
     Service Details
 @endsection
+@push('css')
+    <style>
+        .event-details-section .event-pricing-plan .pricing-list ul .pricing-table {
+            width: 25% !important;
+        }
+    </style>
+@endpush
 @section('content')
 <body class="default-header-p">
 
@@ -107,84 +114,7 @@
                     <!-- event-details - end -->
 
 
-                    <!-- event-pricing-plan - start -->
-                    <div class="event-pricing-plan mb-80 clearfix">
-
-                        <div class="section-title text-left mb-50">
-                            <span class="line-style"></span>
-                            <h2 class="big-title">Event <strong>Pricing Plans</strong></h2>
-                        </div>
-
-                        <div class="pricing-list ul-li clearfix">
-                            <ul>
-
-                                <li class="pricing-table">
-                                    <div class="pricing-header clearfix">
-                                        <span class="amount">{{$service->price[0]->price}} PKR</span>
-                                        <h3 class="pricing-table-title">{{$service->price[0]->name}}</h3>
-                                    </div>
-
-                                    <div class="pricing-body clearfix">
-                                        <ul>
-                                            @foreach (json_decode($service->price[0]->features)  as $item)
-                                            <li class="item-on">{{$item}}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-
-                                    <div class="pricing-footer clearfix">
-                                        <a href="{{route('booking.make',['service'=>$service->id,'price'=>$service->price[0]->id])}}" class="custom-btn">get this</a>
-                                    </div>
-                                </li>
-
-                                <li class="pricing-table popular-pricing-table">
-                                    <span class="popularity-sign">best choice</span>
-                                    <div class="pricing-header clearfix">
-                                        <span class="amount">{{$service->price[1]->price}} PKR</span>
-                                        <h3 class="pricing-table-title">{{$service->price[1]->name}}</h3>
-                                    </div>
-
-                                    <div class="pricing-body clearfix">
-                                        <ul>
-
-                                            @foreach (json_decode($service->price[1]->features)  as $item)
-                                            <li class="item-on">{{$item}}</li>
-                                            @endforeach
-
-                                        </ul>
-                                    </div>
-
-                                    <div class="pricing-footer clearfix">
-                                        <a href="{{route('booking.make',['service'=>$service->id,'price'=>$service->price[1]->id])}}" class="custom-btn">get this</a>
-                                    </div>
-                                </li>
-
-                                <li class="pricing-table">
-                                    <div class="pricing-header clearfix">
-                                        <span class="amount">{{$service->price[2]->price}} PKR</span>
-                                        <h3 class="pricing-table-title">{{$service->price[2]->name}}</h3>
-                                    </div>
-
-                                    <div class="pricing-body clearfix">
-                                        <ul>
-
-                                            @foreach (json_decode($service->price[2]->features)  as $item)
-                                            <li class="item-on">{{$item}}</li>
-                                            @endforeach
-
-                                        </ul>
-                                    </div>
-
-                                    <div class="pricing-footer clearfix">
-                                        <a href="{{route('booking.make',['service'=>$service->id,'price'=>$service->price[2]->id])}}" class="custom-btn">get this</a>
-                                    </div>
-                                </li>
-                                
-                            </ul>
-                        </div>
-
-                    </div>
-                    <!-- event-pricing-plan - end -->
+               
 
 
 
@@ -260,6 +190,71 @@
                 </div>
                 <!-- sidebar-section - end -->
                 
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                         <!-- event-pricing-plan - start -->
+                         <div class="event-pricing-plan mb-80 clearfix">
+
+                            <div class="section-title text-left mb-50">
+                                <span class="line-style"></span>
+                                <h2 class="big-title">Event <strong>Pricing Plans</strong></h2>
+                            </div>
+    
+                            <div class="pricing-list ul-li clearfix">
+                                <ul>
+                                    @foreach ($service->price as $item)
+                                    <li class="pricing-table mx-1">
+                                        <div class="pricing-header clearfix">
+                                            <span class="amount">{{$item->price}} PKR</span>
+                                            <h3 class="pricing-table-title">{{$item->name}}</h3>
+                                        </div>
+    
+                                        <div class="pricing-body clearfix">
+                                            <ul>
+                                                @foreach (json_decode($item->features)  as $item2)
+                                                <li class="item-on">{{$item2}}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+    
+                                        <div class="pricing-footer clearfix">
+                                            <a href="{{route('booking.make',['service'=>$service->id,'price'=>$item->id])}}" class="custom-btn">get this</a>
+                                        </div>
+                                    </li>
+                                    @endforeach
+                                    
+    
+                                    {{-- <li class="pricing-table popular-pricing-table">
+                                        <span class="popularity-sign">best choice</span>
+                                        <div class="pricing-header clearfix">
+                                            <span class="amount">{{$service->price[1]->price}} PKR</span>
+                                            <h3 class="pricing-table-title">{{$service->price[1]->name}}</h3>
+                                        </div>
+    
+                                        <div class="pricing-body clearfix">
+                                            <ul>
+    
+                                                @foreach (json_decode($service->price[1]->features)  as $item)
+                                                <li class="item-on">{{$item}}</li>
+                                                @endforeach
+    
+                                            </ul>
+                                        </div>
+    
+                                        <div class="pricing-footer clearfix">
+                                            <a href="{{route('booking.make',['service'=>$service->id,'price'=>$service->price[1]->id])}}" class="custom-btn">get this</a>
+                                        </div>
+                                    </li> --}}
+    
+                                   
+                                    
+                                </ul>
+                            </div>
+    
+                        </div>
+                        <!-- event-pricing-plan - end -->
+                </div>
             </div>
         </div>
     </section>

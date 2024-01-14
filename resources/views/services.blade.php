@@ -215,7 +215,7 @@
                                                 <span class="date">26</span>
                                                 <small class="month">june</small>
                                             </div> --}}
-                                            <img src="{{asset('uploads/services/images/'.$item->image)}}" alt="Image_not_found">
+                                            <img src="{{asset('uploads/images/category/'.$item->image)}}" alt="Image_not_found">
                                         </div>
                                         <!-- event-image - end -->
 
