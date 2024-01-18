@@ -19,7 +19,7 @@
                         <tr>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Email</th>
+                            <th>CNIC</th>
                             <th>Phone NO</th>
                             <th>Action</th>
                         </tr>
@@ -28,7 +28,7 @@
                         <tr>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Email</th>
+                            <th>CNIC</th>
                             <th>Phone NO</th>
                             <th>Action</th>
                         </tr>
@@ -39,7 +39,7 @@
                             
                             <th><img height="100" width="100" src="{{asset('uploads/profile/'.$provider->image)}}" alt="logo"></th>
                             <th>{{$provider->name}}</th>
-                            <th>{{$provider->email}}</th>
+                            <th>{{$provider->cnic ?? ''}}</th>
                             <th>{{$provider->phone_no}}</th>
                             <td>
                                 <a href="{{route('admin.provider.edit',[$provider->id])}}" class="btn btn-info">Edit</a>

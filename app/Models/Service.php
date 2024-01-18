@@ -22,6 +22,10 @@ class Service extends Model
         return $this->hasMany(MultipleService::class);
     }
 
+    public function category(){
+        return $this->belongsTo(Category::class,'category_id','id');
+    }
+
     public function events()
     {
         return $this->hasManyThrough(Event::class, MultipleService::class, 'service_id', 'id', 'id', 'event_id');

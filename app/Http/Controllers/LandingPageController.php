@@ -29,6 +29,7 @@ class LandingPageController extends Controller
 
     public function services_list(Request $request){
         $service_id =  $request->id;
+        $data['page'] = "services_list";
 
         $data['service'] = Category::whereHas('events', function ($query) use ($service_id) {
             $query->where('event_id', $service_id);
@@ -63,6 +64,7 @@ class LandingPageController extends Controller
     }
 
     public function services_category($id){
+        $data['page'] = "services_category";
         $data['service'] =  Service::where('category_id',$id)->get();
         
         return view('services',$data);
@@ -192,7 +194,7 @@ class LandingPageController extends Controller
         $maxPrice = $request['servicemaxprice'][$i];
 
         if ($serviceName) {
-            $services_data = Service::where('category_id',$serviceName)
+            $services_data = Service::where('category_id',$serviceName)->with('category')
                 ->with(['price' => function ($query) use ($minPrice, $maxPrice) {
                     $query->whereBetween('price', array(intval($minPrice) , intval($maxPrice)))
                         ->orderBy('price', 'desc')
@@ -216,6 +218,7 @@ class LandingPageController extends Controller
     }
 
     $data['services'] = $services;
+    // return $data;
     return view('plain',$data);
 
     return response()->json($services);

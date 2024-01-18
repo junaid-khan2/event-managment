@@ -18,6 +18,8 @@ class ServiceProvider extends Authenticatable
         'email',
         'password',
         'phone_no',
+        'address',
+        'cnic',
         'image',
         'status',
         'proof_document',

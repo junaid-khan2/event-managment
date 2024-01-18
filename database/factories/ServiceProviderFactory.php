@@ -21,6 +21,8 @@ class ServiceProviderFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'password' => bcrypt('password'), // You can customize the default password
             'phone_no' => $this->faker->phoneNumber,
+            'address' => $this->faker->address,
+            'cnic' => $this->faker->regexify('[0-9]{5}-[0-9]{7}-[0-9]{1}'), // Generating a random CNIC number
             'image' => 'default_user.jpg', // You can customize the default image path
             'status' => '1', // You can customize the default status
             'whatsapp' => $this->faker->phoneNumber,

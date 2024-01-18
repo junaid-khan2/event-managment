@@ -215,7 +215,11 @@
                                                 <span class="date">26</span>
                                                 <small class="month">june</small>
                                             </div> --}}
+                                            @if($page == "services_list")
                                             <img src="{{asset('uploads/images/category/'.$item->image)}}" alt="Image_not_found">
+                                            @else
+                                            <img src="{{asset('uploads/services/images/'.$item->image)}}" alt="Image_not_found">
+                                            @endif
                                         </div>
                                         <!-- event-image - end -->
 

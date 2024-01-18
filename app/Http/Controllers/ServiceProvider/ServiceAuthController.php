@@ -16,6 +16,8 @@ class ServiceAuthController extends Controller
               // Define your validation rules
         $rules = [
             'name'=>'required',
+            'phone_no' => 'required|regex:/^03[0-9]{9}$/|unique:service_providers', // Pakistani mobile number format
+            'cnic' => 'required|regex:/^[0-9]{5}-[0-9]{7}-[0-9]{1}$/|unique:service_providers', // Pakistani CNIC format
             'email' => 'required|email|unique:service_providers',
             'password' => 'required',
             'proof_document' => 'required|mimes:jpg,jpeg,png,pdf,docx|max:2048',
@@ -41,6 +43,9 @@ class ServiceAuthController extends Controller
         ServiceProvider::create([
             'name'=>$request->name,
             'email'=>$request->email,
+            'phone_no'=>$request->phone_no,
+            'address'=>$request->address,
+            'cnic'=>$request->cnic,
             'password'=>Hash::make($request->password),
             'proof_document'=>$fileName
         ]);

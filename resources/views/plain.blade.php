@@ -121,7 +121,7 @@
                                         </td>
                                         @else
                                         <td colspan="4">
-Unfortunately, no services are available within your specified budget range. Please adjust your budget.
+Unfortunately, no {{$item->category->name}} are available within your specified budget range. Please adjust your budget.
                                         </td>
 
 
@@ -135,7 +135,7 @@ Unfortunately, no services are available within your specified budget range. Ple
                                         <td > <strong>{{$total}}</strong> </td>
                                     </tfoot>
                                 </table>
-                                <p>Confrom Booking if You are Agre with this</p>
+                                <p>Kindly complete the form below; your details will be securely shared with the selected service providers for a tailored response to your event needs.</p>
                                 <form action="{{route('conform.service.plain')}}" method="post">
                                 <div class="text-center">
                                     @csrf
