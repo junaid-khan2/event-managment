@@ -59,28 +59,23 @@
                         <th>Name</th>
                         <th>email</th>
                         <th>phone</th>
+                        <th>Cnic</th>
+                        <th>Address</th>
                         <th>Service</th>
                         <th>Price</th>
                         <th>Description</th>
                         
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>email</th>
-                        <th>phone</th>
-                        <th>Service</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                    </tr>
-                </tfoot>
+               
                 <tbody>
                     @foreach($todaybookings as $booking)
                     <tr>
                       <td>{{$booking->name}}</td>
                       <td>{{$booking->email}}</td>
                       <td>{{$booking->phone}}</td>
+                      <td>{{$booking->cnic}}</td>
+                      <td>{{$booking->address}}</td>
                       <td>{{$booking->service->name}}</td>
                       <td>{{$booking->price->price}}</td>
                       <td>{{$booking->description}}</td>

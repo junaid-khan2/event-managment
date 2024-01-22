@@ -235,7 +235,7 @@
                                                 {{$item->short_description}}
                                             </div>
                                             <a href="{{route('services.view',['id'=>$item->id])}}" class="tickets-details-btn">
-                                                tickets & details
+                                                Details
                                             </a>
                                         </div>
                                         <!-- event-content - end -->

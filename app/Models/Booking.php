@@ -9,7 +9,7 @@ use App\Models\Service;
 class Booking extends Model
 {
     use HasFactory;
-    protected $fillable = ['service_id','price_id','date','name','email','phone','description'];
+    protected $fillable = ['service_id','price_id','date','name','email','phone','cnic','address','description'];
 
     public function user()
     {

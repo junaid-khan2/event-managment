@@ -136,6 +136,16 @@ Unfortunately, no {{$item->category->name}} are available within your specified 
                                     </tfoot>
                                 </table>
                                 <p>Kindly complete the form below; your details will be securely shared with the selected service providers for a tailored response to your event needs.</p>
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
                                 <form action="{{route('conform.service.plain')}}" method="post">
                                 <div class="text-center">
                                     @csrf
@@ -147,7 +157,13 @@ Unfortunately, no {{$item->category->name}} are available within your specified 
                                         <input name="email" required type="email" placeholder="Email Address">
                                     </div>
                                     <div class="form-item">
-                                        <input name="phone" required type="tel" placeholder="Phone Number">
+                                        <input name="cnic" required type="text" placeholder="CNIC Number" pattern="\d{5}-\d{7}-\d" title="Please enter a valid Pakistani CNIC number in the format: 12345-1234567-1">
+                                    </div>
+                                    <div class="form-item">
+                                        <input name="phone" required type="tel" placeholder="Phone Number" pattern="\+?\d{1,4}[-.\s]?\d{1,12}" title="Please enter a valid phone number">
+                                    </div>
+                                    <div class="form-item">
+                                        <input name="address" required type="text" placeholder="Address">
                                     </div>
                                     <div class="form-item">
                                         <input type="date" name="date" id="">

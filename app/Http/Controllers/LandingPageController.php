@@ -179,52 +179,66 @@ class LandingPageController extends Controller
     public function plain_search(Request $request) {
         // return $request;
         
-    $filteredServices = [];
-    $services = [];
+        $filteredServices = [];
+        $services = [];
 
-    if(!$request['servicename']){
-        return redirect()->back()->withErrors(['msg' => 'Select Services']);
-    }
+        if(!$request['servicename']){
+            return redirect()->back()->withErrors(['msg' => 'Select Services']);
+        }
 
-    // return $request;
+        // return $request;
 
-    for ($i = 0; $i < count($request['servicename']); $i++) {
-        $serviceName = $request['servicename'][$i];
-        $minPrice = $request['serviceminprice'][$i];
-        $maxPrice = $request['servicemaxprice'][$i];
+        for ($i = 0; $i < count($request['servicename']); $i++) {
+            $serviceName = $request['servicename'][$i];
+            $minPrice = $request['serviceminprice'][$serviceName-1];
+            $maxPrice = $request['servicemaxprice'][$serviceName-1];
+            $data['serviceName'] = $serviceName;
+            $data['minPrice'] = $minPrice;
+            $data['maxPrice'] = $maxPrice;
 
-        if ($serviceName) {
-            $services_data = Service::where('category_id',$serviceName)->with('category')
-                ->with(['price' => function ($query) use ($minPrice, $maxPrice) {
-                    $query->whereBetween('price', array(intval($minPrice) , intval($maxPrice)))
-                        ->orderBy('price', 'desc')
-                        ->first();
-                }])
-                ->first();
+            // return $data;
+            if ($serviceName) {
+                $services_data = Service::where('category_id',$serviceName)->with('category')
+                    ->with(['price' => function ($query) use ($minPrice, $maxPrice) {
+                        $query->whereBetween('price', array(intval($minPrice) , intval($maxPrice)))
+                            ->orderBy('price', 'desc')
+                            ->first();
+                    }])
+                    ->first();
 
-            if (!empty($services_data->price)) {
-                $services[] = $services_data;
+                if (!empty($services_data->price)) {
+                    $services[] = $services_data;
+                }
+            }
+            // if($serviceName){
+            //     $services = Price::whereBetween('price', array(intval(200) , intval(300)))
+            //     ->orderBy('price', 'desc')
+            //     ->first();
+            //     dd($services);
+
+            else{
+                echo "NOT FOUND";
             }
         }
-        // if($serviceName){
-        //     $services = Price::whereBetween('price', array(intval(200) , intval(300)))
-        //     ->orderBy('price', 'desc')
-        //     ->first();
-        //     dd($services);
 
-        else{
-            echo "NOT FOUND";
-        }
+        $data['services'] = $services;
+        // return $data;
+        return view('plain',$data);
+
+        return response()->json($services);
     }
 
-    $data['services'] = $services;
-    // return $data;
-    return view('plain',$data);
-
-    return response()->json($services);
-}
-
     public function conform_service(Request $request){
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|regex:/^\+?\d{1,4}[-.\s]?\d{1,12}$/',
+            'cnic' => 'required|string|regex:/^\d{5}-\d{7}-\d$/',
+            'address' => 'required|string|max:255',
+            'date' => 'required|date',
+            'description' => 'nullable|string',
+        ]);
 
         $priceIds = json_decode($request->price_ids, true);
        $plain = Price::whereIn('id',$priceIds)->with('service.user')->get();
@@ -232,6 +246,8 @@ class LandingPageController extends Controller
         $email = $request->email;
         $phone = $request->phone;
         $date = $request->date;
+        $cnic = $request->cnic;
+        $address = $request->address;
         $description = $request->description;
        foreach($plain as $plain_b){
         $data = Booking::create([
@@ -240,30 +256,26 @@ class LandingPageController extends Controller
             'name'=>$name,
             'email'=>$email,
             'phone'=>$phone,
+            'cnic'=>$cnic,
+            'address'=>$address,
             'date'=>$date,
             'description'=>$description,
         ]);
 
-        $mailData = [
-            'serviceprovider_name' => $plain_b->service->user->name,
-            'service_name' => $plain_b->service->name,
-            'price_plan' => $plain_b->name,
-            'name'=>$name,
-            'email'=>$email,
-            'phone'=>$phone,
-            'date'=>$date,
-        ];
+        // $mailData = [
+        //     'serviceprovider_name' => $plain_b->service->user->name,
+        //     'service_name' => $plain_b->service->name,
+        //     'price_plan' => $plain_b->name,
+        //     'name'=>$name,
+        //     'email'=>$email,
+        //     'phone'=>$phone,
+        //     'date'=>$date,
+        // ];
 
       
         
-        Mail::to('jk904465@example.com')->send(new BookService($mailData));
-        // echo $plain_b->service->id."Service id \n <br>";
-        // echo $plain_b->id." Price Id  \n <br>";
-        // echo $name." name   \n <br>";
-        // echo $email." email  \n <br>";
-        // echo $phone." phone  \n <br>";
-        // echo $date." date  \n <br>";
-        // echo $description." description  \n <br>";
+        // Mail::to('jk904465@example.com')->send(new BookService($mailData));
+     
        }
        if($data){
         return redirect()->route('index')->with(['msg'=>'Booking Susscssfluy']);
