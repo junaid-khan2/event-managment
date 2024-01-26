@@ -334,11 +334,13 @@ Home
       <div class="tab-content">
 
         @foreach ($category as $item1)
+        
         <div id="{{$item1->id}}" class="tab-pane fade {{$loop->first ? 'active show' : ''}}">
           <div class="row">
 
            @foreach ($item1->services as $item)
-           @if($item->events->contains('id', $item1->id))
+           
+           {{-- @if($item->events->contains('id', $item1->id)) --}}
                <!-- event-item - start -->
                <div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="event-item clearfix">
@@ -373,7 +375,7 @@ Home
                 </div>
               </div>
               <!-- event-item - end -->
-            @endif
+            {{-- @endif --}}
            @endforeach
 
           </div>

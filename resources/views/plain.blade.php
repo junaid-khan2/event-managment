@@ -25,7 +25,11 @@
 
     @include('partials.header')
 
-
+    @if(session('msg'))
+        <div class="alert alert-success">
+            {{ session('msg') }}
+        </div>
+    @endif
     <!-- breadcrumb-section - start
     ================================================== -->
     <section id="breadcrumb-section" class="breadcrumb-section clearfix">

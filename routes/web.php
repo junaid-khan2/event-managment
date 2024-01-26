@@ -41,6 +41,8 @@ Route::get('/services/{category}','App\Http\Controllers\LandingpageController@se
 Route::get('service/search', 'App\Http\Controllers\LandingpageController@service_search')->name('service.search');
 Route::get('/booking/make/{service}/{price}', 'App\Http\Controllers\LandingpageController@booking')->name('booking.make');
 Route::post('booking' , 'App\Http\Controllers\LandingpageController@booking_form')->name('booking');
+Route::view('/mybooking','my_booking')->name('mybooking');
+Route::post('/mybooking','App\Http\Controllers\LandingpageController@my_booking')->name('mybookingpost');
 
 
 // ajax searach

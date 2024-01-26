@@ -20,6 +20,12 @@
 .irs-to , .irs-from, .irs-min , .irs-max, .irs-bar, .irs-handle  {
     background: #FF5733 !important; 
 }
+.irs .irs-max{
+    visibility: hidden !important;
+}
+.irs .irs-min{
+    visibility: hidden !important;
+}
 
 
 </style>

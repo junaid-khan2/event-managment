@@ -84,6 +84,10 @@
 												  <a href="{{route('contact')}}">contact</a>
 												
 												</li>
+												<li @if (Route::currentRouteName() == 'mybooking') class="active" @endif>
+												  <a href="{{route('mybooking')}}">My Booking</a>
+												
+												</li>
 											  </ul>
 										</div>
 									</div>
