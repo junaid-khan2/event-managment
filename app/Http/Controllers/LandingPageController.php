@@ -229,38 +229,39 @@ class LandingPageController extends Controller
     }
 
     public function conform_service(Request $request){
+        
 
-    //     $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'email' => 'required|email|max:255',
-    //         'phone' => 'required|string|regex:/^\+?\d{1,4}[-.\s]?\d{1,12}$/',
-    //         'cnic' => 'required|string|regex:/^\d{5}-\d{7}-\d$/',
-    //         'address' => 'required|string|max:255',
-    //         'date' => 'required|date',
-    //         'description' => 'nullable|string',
-    //     ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|regex:/^\+?\d{1,4}[-.\s]?\d{1,12}$/',
+            'cnic' => 'required|string|regex:/^\d{5}-\d{7}-\d$/',
+            'address' => 'required|string|max:255',
+            'date' => 'required|date',
+            'description' => 'nullable|string',
+        ]);
 
-    //     $priceIds = json_decode($request->price_ids, true);
-    //    $plain = Price::whereIn('id',$priceIds)->with('service.user')->get();
-    //     $name = $request->name;
-    //     $email = $request->email;
-    //     $phone = $request->phone;
-    //     $date = $request->date;
-    //     $cnic = $request->cnic;
-    //     $address = $request->address;
-    //     $description = $request->description;
-    //    foreach($plain as $plain_b){
-    //     $data = Booking::create([
-    //         'service_id'=>$plain_b->service->id,
-    //         'price_id'=>$plain_b->id,
-    //         'name'=>$name,
-    //         'email'=>$email,
-    //         'phone'=>$phone,
-    //         'cnic'=>$cnic,
-    //         'address'=>$address,
-    //         'date'=>$date,
-    //         'description'=>$description,
-    //     ]);
+        $priceIds = json_decode($request->price_ids, true);
+       $plain = Price::whereIn('id',$priceIds)->with('service.user')->get();
+        $name = $request->name;
+        $email = $request->email;
+        $phone = $request->phone;
+        $date = $request->date;
+        $cnic = $request->cnic;
+        $address = $request->address;
+        $description = $request->description;
+       foreach($plain as $plain_b){
+        $data = Booking::create([
+            'service_id'=>$plain_b->service->id,
+            'price_id'=>$plain_b->id,
+            'name'=>$name,
+            'email'=>$email,
+            'phone'=>$phone,
+            'cnic'=>$cnic,
+            'address'=>$address,
+            'date'=>$date,
+            'description'=>$description,
+        ]);
 
         // $mailData = [
         //     'serviceprovider_name' => $plain_b->service->user->name,
@@ -276,7 +277,7 @@ class LandingPageController extends Controller
         
         // Mail::to('jk904465@example.com')->send(new BookService($mailData));
      
-      // }
+       }
        if(true){
         return redirect()->back()->with(['msg'=>'Booking Susscssfluy']);
         }else{

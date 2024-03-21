@@ -42,7 +42,7 @@
                             <!-- breadcrumb-title - start -->
                             <div class="breadcrumb-title text-center mb-50">
                                 <span class="sub-title">Service booking</span>
-                                <h2 class="big-title">Webify <strong>Plain</strong></h2>
+                                <h2 class="big-title">Webify <strong>Plan</strong></h2>
                             </div>
                             <!-- breadcrumb-title - end -->
 
@@ -84,7 +84,7 @@
 
                             <!-- section-title - start -->
                             <div class="section-title mb-30">
-                                <h2 class="big-title">Service Plain <strong>information</strong></h2>
+                                <h2 class="big-title">Service Plan <strong>information</strong></h2>
                             </div>
                             <!-- section-title - end -->
 

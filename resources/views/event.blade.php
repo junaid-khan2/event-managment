@@ -149,7 +149,7 @@
     
   <section class="sec-ptb-100 clearfix">
     <div class="container ">
-        <h1 class="text-center h1 " style="color: #FF5733; font-weight: bold">Make Event Plain</h1>
+        <h1 class="text-center h1 " style="color: #FF5733; font-weight: bold">Make Event Plan</h1>
         <div class="card">
             <div class="card-body">
                 @if($errors->any())
